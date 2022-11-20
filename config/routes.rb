@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
+  root 'users#index'
+
+  resources :users, except: [:destroy]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
   # root "articles#index"
-  get 'show' => 'users#show'
+  # get 'show' => 'users#show'
 end
