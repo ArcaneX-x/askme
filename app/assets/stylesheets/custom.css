@@ -5,7 +5,7 @@
 .user-image-div {
   width: 100px;
   height: 100px;
-  margin: 0 auto;
+  margin: 0 0;
   border: 5px solid #00b6ad;
   border-radius: 50%;
   overflow: hidden;
@@ -22,4 +22,17 @@
   max-height: 100%;
 }
 
+.footer {
+  position: absolute;
+  left: 0 ; right: 0; bottom: auto;
+  height:[footer-height]
+}
 
+.btn-border {
+ margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 992px) {
+  .footer { left: 0 ; right: 0; bottom: 0; }
+}

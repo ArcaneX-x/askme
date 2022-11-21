@@ -1,20 +1,42 @@
 <div class="container">
-  <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-    <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-      <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
-    </a>
+  <div class="row mb-3">
+    <div class="col-md-8 themed-grid-col">
+      <h1 class="title-medium">
+        <%= @user.name %>
+      </h1>
+      <div class="user-image-div">
+        <%= image_tag user_avatar(@user), class: 'user-image', alt: '[Фото]' %>
+      </div>
+      <h2 class="title-small buffer-both">
+        @<%= @user.username %>
+      </h2>
 
-    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-      <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
-      <li><a href="#" class="nav-link px-2 link-dark">Features</a></li>
-      <li><a href="#" class="nav-link px-2 link-dark">Pricing</a></li>
-      <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
-      <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
-    </ul>
+      <div class="form-floating">
+        <%= form_for @new_question do |f| %>
+          <%= f.hidden_field :user_id %>
+          <%= f.text_area :text, class: 'form-control', id: 'floatingInput', placeholder:'Your question' %>
+          <%= submit_tag 'Ask Question', class: 'btn btn-primary btn-border' %>
+        <% end %>
+      </div>
 
-    <div class="col-md-3 text-end">
-      <button type="button" class="btn btn-outline-primary me-2">Login</button>
-      <button type="button" class="btn btn-primary">Sign-up</button>
     </div>
-  </header>
+    <div class="col-6 col-md-4 themed-grid-col">
+
+      <div class="questions-list">
+        <h3>Last Questions:</h3>
+        <% @questions.each do |question| %>
+          <%= render partial: 'questions/question', object: question %>
+        <% end %>
+      </div>
+
+    </div>
+
+  <!--  <div class="buffer-both">-->
+  <%#= link_to 'Редактировать профиль', edit_user_path(@user) if current_user == @user %>
+  <!--  </div>-->
+
+    </div>
+
+
 </div>
+

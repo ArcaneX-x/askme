@@ -1,0 +1,17 @@
+<div class="question">
+  <div class="question-content">
+    <div class="question-text text-lead">
+      <%= question.text %>
+    </div>
+
+    <% if question.answer.present? %>
+      <div class="question-answer text-lead">
+        <%= question.answer %>
+      </div>
+    <% end %>
+
+    <div class="question-date">
+      <%= l(question.created_at, format: :short) %>
+    </div>
+  </div>
+</div>
