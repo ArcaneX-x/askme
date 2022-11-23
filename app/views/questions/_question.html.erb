@@ -1,17 +1,22 @@
-<div class="question">
-  <div class="question-content">
-    <div class="question-text text-lead">
-      <%= question.text %>
+<div class="card">
+  <div class="card-body">
+    <div class="card-text">
+      <small class="text-muted">
+        <%= l(question.created_at, format: :short) %>
+      </small>
     </div>
+    <p class="card-text">
+      <%= question.text %></p>
+    <% if question.user == current_user %>
+    <%= link_to 'Answer', edit_question_path(question) %>
+    <%= link_to 'Delete', question_path(question),
+                method: :delete, data: {confirm: 'Are you sure?'} %>
+      <% end %>
 
     <% if question.answer.present? %>
-      <div class="question-answer text-lead">
+      <div class="card-text">
         <%= question.answer %>
       </div>
     <% end %>
-
-    <div class="question-date">
-      <%= l(question.created_at, format: :short) %>
-    </div>
   </div>
 </div>

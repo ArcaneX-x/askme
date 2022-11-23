@@ -31,9 +31,15 @@
         </ul>
 
         <div class="col-md-3 text-end">
-          <%= link_to "Login", new_user_path, type: "button", class:"btn btn-outline-primary me-2", :method => "get" %>
-          <%= link_to "Sign-up", new_user_path, type: "button", class:"btn btn-primary", :method => "get" %>
+          <% if current_user %>
+            <%= link_to "@#{current_user.username}", user_path(current_user), type: "button", class:"btn btn-outline-primary me-2" %>
+            <%= link_to "Logout", log_out_path, type: "button", class:"btn btn-primary" %>
+          <% else %>
+            <%= link_to "Login", log_in_path, type: "button", class:"btn btn-outline-primary me-2" %>
+            <%= link_to "Sign-up", sign_up_path, type: "button", class:"btn btn-primary" %>
+          <% end %>
         </div>
+
       </header>
     </div>
   </head>
@@ -41,9 +47,6 @@
     <%= yield %>
 
   </body>
-<!--  <footer class="footer">-->
-<!--    Footer-->
-<!--  </footer>-->
   <div class="container footer">
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
       <div class="col-md-4 d-flex align-items-center">

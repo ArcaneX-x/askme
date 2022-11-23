@@ -1,15 +1,18 @@
 <div class="container">
   <div class="row mb-3">
     <div class="col-md-8 themed-grid-col">
+
+        <%= link_to 'Edit Profile', edit_user_path(@user), type: "button", class:"btn btn-outline-primary me-2 btn-sm", :method => "get" if current_user == @user  %>
+
       <h1 class="title-medium">
         <%= @user.name %>
       </h1>
       <div class="user-image-div">
         <%= image_tag user_avatar(@user), class: 'user-image', alt: '[Фото]' %>
       </div>
-      <h2 class="title-small buffer-both">
+      <h3 class="title-small buffer-both">
         @<%= @user.username %>
-      </h2>
+      </h3>
 
       <div class="form-floating">
         <%= form_for @new_question do |f| %>
@@ -18,25 +21,19 @@
           <%= submit_tag 'Ask Question', class: 'btn btn-primary btn-border' %>
         <% end %>
       </div>
-
+      <% if flash.any? %>
+        <% flash.each do |name, message| %>
+          <%= content_tag :div, message, class: "alert alert-success" %>
+        <% end %>
+      <% end %>
     </div>
     <div class="col-6 col-md-4 themed-grid-col">
-
-      <div class="questions-list">
-        <h3>Last Questions:</h3>
+        <h4>Last Questions:</h4>
         <% @questions.each do |question| %>
           <%= render partial: 'questions/question', object: question %>
         <% end %>
-      </div>
-
     </div>
 
-  <!--  <div class="buffer-both">-->
-  <%#= link_to 'Редактировать профиль', edit_user_path(@user) if current_user == @user %>
-  <!--  </div>-->
-
     </div>
-
-
 </div>
 
