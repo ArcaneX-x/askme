@@ -1,29 +1,52 @@
 class UsersController < ApplicationController
+
+  before_action :load_user, except: [:index, :create, :new]
+  before_action :authorize_user, except: [:index, :new, :create, :show]
+
   def index
     @users = User.all
   end
 
   def new
+    if current_user.present?
+      redirect_to root_url, alert: 'You already logged'
+    else
     @user = User.new
     render :layout => nil
+    end
+  end
+  def create
+    redirect_to root_url, alert: 'You already logged' if current_user.present?
+    @user = User.new(user_params)
+    if @user.save
+      redirect_to root_url, notice: 'User was successfully created'
+    else
+      render 'new', :layout => nil
+    end
   end
 
   def edit
   end
 
-  def show
-    @user = User.find(params[:id])
-    @questions = @user.questions.order(created_at: :desc)
-    # @new_question = @user.questions.build
-    @new_question = Question.new
+  def update
+      if @user.update(user_params)
+        redirect_to user_path(@user), notice: 'Date was successfully updated'
+      else
+        render 'edit'
+      end
   end
 
-  def create
-    @user = User.new(user_params)
-    @user.save
+  def show
+    @questions = @user.questions.order(created_at: :desc)
+    @new_question = @user.questions.build
   end
 
   private
+
+  def authorize_user
+    reject_user unless @user == current_user
+  end
+
   def load_user
     @user ||= User.find params[:id]
   end

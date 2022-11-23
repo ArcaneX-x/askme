@@ -1,57 +1,60 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="generator" content="Hugo 0.84.0">
-  <title>Log-in to AskMe</title>
+<style>
+  .list-group {
+    margin-bottom: 10px;
+  }
+  .list-group-item {
+    padding: 0;
+    margin-bottom: 1px;
+  }
 
-  <!-- Bootstrap core CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  .form-group {
+    margin-bottom: 10px;
+  }
 
-  <style>
-    .bd-placeholder-img {
-      font-size: 1.125rem;
-      text-anchor: middle;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      user-select: none;
-    }
+</style>
+<div class="container">
+  <div class="row mb-3">
+    <div class="col-6 col-md-4 themed-grid-col">
+      <% if flash.any? %>
+        <% flash.each do |name, message| %>
+          <%= content_tag :div, message, class: "alert alert-success" %>
+        <% end %>
+      <% end %>
+    <h1 class="h3 mb-3 fw-normal">Edit profile</h1>
 
-    @media (min-width: 768px) {
-      .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-      }
-    }
-  </style>
+    <%= form_for(@user) do |f| %>
+      <% if @user.errors.any? %>
+        <ul class="list-group">
+          <% for message in @user.errors.full_messages %>
+            <li class="list-group-item list-group-item-danger"><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
 
-  <!-- Custom styles for this template -->
-  <%= stylesheet_link_tag 'signin', media: 'all' %>
-</head>
-<body class="text-center">
+      <div class="form-group">
+        <%= f.text_field :email, class: 'form-control', placeholder: "Enter email" %>
+      </div>
 
-<main class="form-signin">
-  <form>
-    <%= image_tag 'ask.png', alt:"", width:"72", height:"72" %>
-    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+      <div class="form-group">
+        <%= f.text_field :username, class: 'form-control', placeholder: "Username" %>
+      </div>
 
-    <div class="form-floating">
-      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-      <label for="floatingInput">Email address</label>
+      <div class="form-group">
+        <%= f.text_field :name, class: 'form-control', placeholder: "Name" %>
+      </div>
+      <p>Leave password blank or fill</p>
+      <div class="form-group">
+        <%= f.password_field :password, class: 'form-control', placeholder: "Password" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.password_field :password_confirmation, class: 'form-control', placeholder: "Password confirmation" %>
+      </div>
+
+      <%= f.submit 'Submit', class: 'w-100 btn btn-lg btn-primary' %>
+    <% end %>
     </div>
-    <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-      <label for="floatingPassword">Password</label>
-    </div>
+      <div class="col-md-8 themed-grid-col"></div>
+  </div>
+</div>
 
-    <div class="checkbox mb-3">
-      <label>
-        <input type="checkbox" value="remember-me"> Remember me
-      </label>
-    </div>
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-    <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
-  </form>
-</main>
-</body>
-</html>

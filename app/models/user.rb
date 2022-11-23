@@ -32,8 +32,9 @@ class User < ApplicationRecord
     password_hash.unpack1('H*')
   end
 
-  def self.authenticate(email, username, password)
-    user = find_by("email = ? OR username = ?",email,username)
+  def self.authenticate(email, password)
+    # user = find_by("email = ? OR username = ?",email,username)
+    user = find_by(email: email) || find_by(username: email)
     return nil unless user.present?
 
     hashed_password = User.hash_to_string(
