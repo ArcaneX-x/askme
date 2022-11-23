@@ -41,6 +41,14 @@ class UsersController < ApplicationController
     @new_question = @user.questions.build
   end
 
+  def upload
+    uploaded_file = params[:picture]
+    File.open(Rails.root.join('public', 'uploads', uploaded_file.original_filename), 'wb') do |file|
+      file.write(uploaded_file.read)
+    end
+  end
+
+
   private
 
   def authorize_user

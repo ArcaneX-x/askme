@@ -1,0 +1,24 @@
+<div class="col-12 col-sm-6 col-md-8">
+<%= form_for(@question) do |f| %>
+    <% if @question.errors.any? %>
+      <ul class="list-group">
+        <% for message in @question.errors.full_messages %>
+          <li class="list-group-item list-group-item-danger"><%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  <div class="form-group">
+    <h5 class="card-title">Question</h5>
+    <%= form_for(@question) do |f| %>
+      <%= f.hidden_field :user_id %>
+      <%= f.text_area :text, class: 'form-control', id: 'floatingInput' %>
+  </div>
+      <div class="form-group">
+        <h5 class="card-title">Your answer</h5>
+        <%= f.text_area :answer, class: 'form-control', placeholder:'Your answer' %>
+      <%= f.submit 'Save', class: 'btn btn-primary btn-border' %>
+        <%= link_to 'Back', user_path(@question.user), type: "button", class:"btn btn-outline-primary me-2" %>
+    <% end %>
+    <% end %>
+    </div>
+</div>

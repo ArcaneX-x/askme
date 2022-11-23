@@ -2,13 +2,16 @@
   <div class="card-body">
     <div class="card-text">
       <small class="text-muted">
-      <%= l(question.created_at, format: :short) %>
+        <%= l(question.created_at, format: :short) %>
       </small>
     </div>
     <p class="card-text">
       <%= question.text %></p>
-      <a href="#" class="card-link">Card link</a>
-      <a href="#" class="card-link">Another link</a>
+    <% if question.user == current_user %>
+    <%= link_to 'Answer', edit_question_path(question) %>
+    <%= link_to 'Delete', question_path(question),
+                method: :delete, data: {confirm: 'Are you sure?'} %>
+      <% end %>
 
     <% if question.answer.present? %>
       <div class="card-text">

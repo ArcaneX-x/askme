@@ -1,7 +1,11 @@
 <div class="text-center">
-  <% if flash.any? %>
-      <% flash.each do |name, message| %>
+  <% if flash.notice %>
+      <% flash.each do |type, message| %>
         <%= content_tag :div, message, class: "alert alert-success" %>
+      <% end %>
+      <% else %>
+      <% flash.each do |type, message| %>
+        <%= content_tag :div, message, class: "alert alert-danger" %>
       <% end %>
   <% end %>
   <h1 class="display-4 fw-bold">AskMe</h1>
