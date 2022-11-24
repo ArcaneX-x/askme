@@ -66,15 +66,9 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
-    autoprefixer-rails (10.4.7.0)
-      execjs (~> 2)
     bindex (0.8.1)
     bootsnap (1.13.0)
       msgpack (~> 1.2)
-    bootstrap (5.2.2)
-      autoprefixer-rails (>= 9.1.0)
-      popper_js (>= 2.11.6, < 3)
-      sassc-rails (>= 2.0.0)
     builder (3.2.4)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
@@ -82,8 +76,6 @@ GEM
       irb (>= 1.3.6)
       reline (>= 0.3.1)
     erubi (1.11.0)
-    execjs (2.8.1)
-    ffi (1.15.5)
     globalid (1.0.0)
       activesupport (>= 5.0)
     i18n (1.12.0)
@@ -119,7 +111,7 @@ GEM
     nio4r (2.5.8)
     nokogiri (1.13.9-x86_64-linux)
       racc (~> 1.4)
-    popper_js (2.11.6)
+    pg (1.4.5)
     puma (5.6.5)
       nio4r (~> 2.0)
     racc (1.6.0)
@@ -155,14 +147,6 @@ GEM
     rake (13.0.6)
     reline (0.3.1)
       io-console (~> 0.5)
-    sassc (2.4.0)
-      ffi (~> 1.9)
-    sassc-rails (2.1.2)
-      railties (>= 4.0.0)
-      sassc (>= 2.0)
-      sprockets (> 3.0)
-      sprockets-rails
-      tilt
     sprockets (4.1.1)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -174,7 +158,6 @@ GEM
     stimulus-rails (1.1.1)
       railties (>= 6.0.0)
     thor (1.2.1)
-    tilt (2.0.11)
     timeout (0.3.0)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
@@ -193,10 +176,10 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
-  bootstrap (~> 5.2.2)
   debug
   importmap-rails
   jquery-rails
+  pg (~> 1.4, >= 1.4.5)
   puma (~> 5.0)
   rails (~> 7.0.4)
   sprockets-rails
