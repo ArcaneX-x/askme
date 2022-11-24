@@ -32,8 +32,12 @@
 <main class="form-signin">
   <%= image_tag 'ask.png', alt:"", width:"72", height:"72" %>
   <h1 class="h3 mb-3 fw-normal">Please Login</h1>
-  <% if flash.any? %>
-    <% flash.each do |name, message| %>
+  <% if flash.notice %>
+    <% flash.each do |type, message| %>
+      <%= content_tag :div, message, class: "alert alert-success" %>
+    <% end %>
+  <% else %>
+    <% flash.each do |type, message| %>
       <%= content_tag :div, message, class: "alert alert-danger" %>
     <% end %>
   <% end %>

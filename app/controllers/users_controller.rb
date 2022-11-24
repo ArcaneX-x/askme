@@ -19,7 +19,7 @@ class UsersController < ApplicationController
     redirect_to root_url, alert: 'You already logged' if current_user.present?
     @user = User.new(user_params)
     if @user.save
-      redirect_to root_url, notice: 'User was successfully created'
+      redirect_to log_in_path, notice: 'User was successfully created'
     else
       render 'new', :layout => nil
     end
