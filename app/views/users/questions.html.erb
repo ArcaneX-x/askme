@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row mb-3">
+    <div class="col-md-8 themed-grid-col">
+      <% if flash.any? %>
+        <% flash.each do |name, message| %>
+          <%= content_tag :div, message, class: "alert alert-success" %>
+        <% end %>
+      <% end %>
+      <h3>All Questions:</h3>
+      <% @questions.each do |question| %>
+        <%= render partial: 'questions/question', object: question %>
+      <% end %>
+
+    <div class="col-6 col-md-4 themed-grid-col">
+
+    </div>
+
+  </div>
+</div>
+

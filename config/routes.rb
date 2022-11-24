@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   resources :questions, except: [:show, :new, :index]
 
 
-  get 'hello' => 'users#hello'
+  get '/users/:id/questions' => 'users#questions', as: :user_questions
+  get 'specialists' => 'users#specialists'
   get 'sign_up' => 'users#new'
   get 'log_out' => 'sessions#destroy'
   get 'log_in' => 'sessions#new'

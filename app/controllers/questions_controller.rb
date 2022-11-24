@@ -34,6 +34,7 @@ class QuestionsController < ApplicationController
     redirect_to user_path(user), notice: 'Question was successfully destroyed'
   end
 
+
   private
 
     def authorize_user

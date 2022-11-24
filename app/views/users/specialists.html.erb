@@ -1,0 +1,23 @@
+<div class="container">
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Avatar</th>
+    <th scope="col">Name</th>
+    <th scope="col">Nickname</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @users.each do |user| %><tr>
+    <th scope="row"><%= user.id %></th>
+    <td> <div class="user-image-div user-image-div-small">
+      <%= link_to image_tag(user_avatar(user), class: 'user-image'), user_path(user) %>
+    </div></td>
+    <td><%= link_to "#{user.name}", user_path(user) %></td>
+    <td><%= user.username %></td>
+  </tr>
+  <% end %>
+  </tbody>
+</table>
+</div>

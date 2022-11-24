@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
 
-  before_action :load_user, except: [:index, :create, :hello, :new]
-  before_action :authorize_user, except: [:index, :new, :create, :show]
+  before_action :load_user, except: [:index, :create, :specialists, :new]
+  before_action :authorize_user, except: [:index, :new, :create, :show, :specialists]
 
   def index
-    @users = User.all
+    @users = User.last(5)
   end
 
   def new
@@ -15,6 +15,7 @@ class UsersController < ApplicationController
     render :layout => nil
     end
   end
+
   def create
     redirect_to root_url, alert: 'You already logged' if current_user.present?
     @user = User.new(user_params)
@@ -39,19 +40,19 @@ class UsersController < ApplicationController
   def show
     @questions = @user.questions.order(created_at: :desc)
     @new_question = @user.questions.build
+
+    @questions_count = @questions.count
+    @answers_count = @questions.where.not(answer: nil).count
+    @unanswered_count = @questions_count - @answers_count
   end
 
-  def upload
-    uploaded_file = params[:picture]
-    File.open(Rails.root.join('public', 'uploads', uploaded_file.original_filename), 'wb') do |file|
-      file.write(uploaded_file.read)
-    end
-  end
-
-  def hello
+  def questions
     @questions = @user.questions.order(created_at: :desc)
   end
 
+  def specialists
+    @users = User.all
+  end
 
   private
 

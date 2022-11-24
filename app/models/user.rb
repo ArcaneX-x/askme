@@ -1,50 +1,66 @@
 require 'openssl'
 
 class User < ApplicationRecord
-  ITERATIONS = 20_000
-  DIGEST = OpenSSL::Digest.new('SHA256')
+  ITERATIONS = 20000
+  DIGEST = OpenSSL::Digest::SHA256.new
+  FORMAT_USERNAME = /\A\w+\z/
+  FORMAT_COLOR = /\A#([\h]{3}){1,2}\z/
 
   attr_accessor :password
 
-  has_many :questions
+  has_many :questions, dependent: :destroy
 
-  validates :email, :username, presence: true
-  validates :email, :username, uniqueness: true
-  validates :password, presence: true, on: :create
+  before_validation :username_downcase, if: :username
+  before_save :encrypt_password, if: :password
 
-  validates_confirmation_of :password
+  validates :username, presence: true,
+            uniqueness: true,
+            length: {maximum: 40},
+            format: {with: FORMAT_USERNAME}
 
-  before_save :encrypt_password
+  validates :email, presence: true,
+            uniqueness: true,
+            format: {with: URI::MailTo::EMAIL_REGEXP}
 
-  def encrypt_password
-    if password.present?
-      self.password_salt = User.hash_to_string(OpenSSL::Random.random_bytes(16))
+  validates :password,
+            presence: true,
+            on: [:create, :destroy],
+            confirmation: true
 
-      self.password_hash = User.hash_to_string(
-        OpenSSL::PKCS5.pbkdf2_hmac(
-          password, password_salt, ITERATIONS, DIGEST.length, DIGEST
-        )
-      )
-    end
-  end
+  # validates :profilecolor,
+  #           format: { with: FORMAT_COLOR },
+  #           if: :profilecolor
 
   def self.hash_to_string(password_hash)
-    password_hash.unpack1('H*')
+    password_hash.unpack('H*')[0]
   end
 
   def self.authenticate(email, password)
-    # user = find_by("email = ? OR username = ?",email,username)
-    user = find_by(email: email) || find_by(username: email)
-    return nil unless user.present?
+  user = find_by(email: email) || find_by(username: email)
+  return nil unless user.present?
 
-    hashed_password = User.hash_to_string(
-      OpenSSL::PKCS5.pbkdf2_hmac(
-        password, user.password_salt, ITERATIONS, DIGEST.length, DIGEST
-      )
+  hashed_password = User.hash_to_string(
+    OpenSSL::PKCS5.pbkdf2_hmac(
+      password, user.password_salt, ITERATIONS, DIGEST.length, DIGEST
     )
+  )
 
-    return user if user.password_hash == hashed_password
+  return user if user.password_hash == hashed_password
 
-    nil
+  nil
+end
+
+  private
+
+  def encrypt_password
+    if self.password.present?
+      self.password_salt = User.hash_to_string(OpenSSL::Random.random_bytes(16))
+      self.password_hash = User.hash_to_string(
+        OpenSSL::PKCS5.pbkdf2_hmac(self.password, self.password_salt, ITERATIONS, DIGEST.length, DIGEST))
+    end
+  end
+
+  def username_downcase
+    self.username = username.downcase
   end
 end
