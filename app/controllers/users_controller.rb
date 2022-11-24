@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   before_action :load_user, except: [:index, :create, :specialists, :new]
-  before_action :authorize_user, except: [:index, :new, :create, :show, :specialists]
+  before_action :authorize_user, except: [:index, :new, :create, :show, :specialists, :questions]
 
   def index
     @users = User.last(5)

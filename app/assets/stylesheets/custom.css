@@ -33,6 +33,6 @@
   margin-bottom: 20px;
 }
 
-td {
+td, th {
   vertical-align: baseline;
 }

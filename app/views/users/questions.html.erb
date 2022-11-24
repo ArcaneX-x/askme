@@ -6,13 +6,14 @@
           <%= content_tag :div, message, class: "alert alert-success" %>
         <% end %>
       <% end %>
-      <h3>All Questions:</h3>
+
+      <h3>All Questions
+      <%= link_to 'Back to user', user_path(@user.id), type: "button", class:"btn btn-outline-primary me-2" %></h3>
       <% @questions.each do |question| %>
         <%= render partial: 'questions/question', object: question %>
       <% end %>
 
     <div class="col-6 col-md-4 themed-grid-col">
-
     </div>
 
   </div>
