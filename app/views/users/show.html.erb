@@ -9,8 +9,8 @@
   <div class="row mb-3">
     <div class="col-md-8 themed-grid-col">
       <p class="title-small">Questions: <%= @questions_count %>
-        | Answers: <%= @questions_count %>
-        | Unanswered: <%= @questions_count %></p>
+        | Answers: <%= @answers_count %>
+        | Unanswered: <%= @unanswered_count %></p>
         <%= link_to 'Edit Profile', edit_user_path(@user), type: "button", class:"btn btn-outline-primary me-2 btn-sm", :method => "get" if current_user == @user  %>
 
       <h1 class="title-medium">
