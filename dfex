@@ -1,0 +1,101 @@
+[33mcommit 2d328f51d8b5c9e157b3a35860207bcda5ef6fc9[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31mheroku/main[m[33m)[m
+Author: axelrod <fasolshik@yahoo.com>
+Date:   Thu Nov 24 14:44:22 2022 +0600
+
+    change route
+
+[33mcommit c02f001e54c546a00da75b987d602650a0815ae3[m
+Author: axelrod <fasolshik@yahoo.com>
+Date:   Thu Nov 24 14:29:30 2022 +0600
+
+    Added image favicon
+
+[33mcommit 78e3bc6aab47c04c2dd0ed8ac08ca846a637134c[m
+Author: axelrod <fasolshik@yahoo.com>
+Date:   Thu Nov 24 14:24:19 2022 +0600
+
+    fix index
+
+[33mcommit 708fdd492abc330d89c1af5a6aed3dccd8123f95[m
+Author: axelrod <fasolshik@yahoo.com>
+Date:   Thu Nov 24 14:13:50 2022 +0600
+
+    Added favicon
+
+[33mcommit b069c0f83cb928d7ac7e0b6969f253a546eee637[m
+Merge: c3d9fba 091a954
+Author: Evgeny <102020480+ArcaneX-x@users.noreply.github.com>
+Date:   Wed Nov 23 22:47:11 2022 +0600
+
+    Merge pull request #2 from ArcaneX-x/development
+    
+    Register function updated
+
+[33mcommit 091a954b00c0a0387d11d407797bb2ea3ed0ae10[m[33m ([m[1;31morigin/development[m[33m, [m[1;31mheroku/development[m[33m, [m[1;32mdevelopment[m[33m)[m
+Author: axelrod <fasolshik@yahoo.com>
+Date:   Wed Nov 23 22:46:42 2022 +0600
+
+    Added Question function
+
+[33mcommit 79d01ea34f903853367be8f65e9a47e86a53f686[m
+Author: axelrod <fasolshik@yahoo.com>
+Date:   Wed Nov 23 18:56:41 2022 +0600
+
+    Register function updated
+
+[33mcommit c3d9fba7fb023a374de6d87c142b2f6b2fee5177[m
+Merge: 7d45fc7 ec86e2e
+Author: Evgeny <102020480+ArcaneX-x@users.noreply.github.com>
+Date:   Wed Nov 23 18:53:35 2022 +0600
+
+    Merge pull request #1 from ArcaneX-x/development
+    
+    Register function
+
+[33mcommit ec86e2e74cb6fe45fa1f856ea34fa215cde6e369[m
+Author: axelrod <fasolshik@yahoo.com>
+Date:   Tue Nov 22 14:33:01 2022 +0600
+
+    Register function
+
+[33mcommit 7d45fc70a837341d1664b1228cecd95d6db99123[m
+Author: axelrod <fasolshik@yahoo.com>
+Date:   Mon Nov 21 22:56:49 2022 +0600
+
+    UI design
+
+[33mcommit 26f23eaf56d7328b4c712e7665a66e6885aeb40e[m
+Author: axelrod <fasolshik@yahoo.com>
+Date:   Mon Nov 21 22:56:40 2022 +0600
+
+    UI design
+
+[33mcommit bde2d96b8b07cf71432c15677d0bb821d4b111a1[m
+Author: axelrod <fasolshik@yahoo.com>
+Date:   Sun Nov 20 22:26:00 2022 +0600
+
+    HomePage
+
+[33mcommit 961d702f194a7770d41918f1854d6e56b158c8b3[m
+Author: axelrod <fasolshik@yahoo.com>
+Date:   Sun Nov 20 22:25:31 2022 +0600
+
+    HomePage
+
+[33mcommit 727e8464bde10b913782da76cccd07946df828ad[m
+Author: axelrod <fasolshik@yahoo.com>
+Date:   Thu Nov 17 22:30:04 2022 +0600
+
+    Added LoginPassword
+
+[33mcommit b2d630733ca416c2b1cddf6ed3343a9f09bafb85[m
+Author: axelrod <fasolshik@yahoo.com>
+Date:   Thu Nov 17 22:29:43 2022 +0600
+
+    Added LoginPassword
+
+[33mcommit e657a7186b96a0d0d84dbf49ff42c956e6eaaf8e[m
+Author: axelrod <fasolshik@yahoo.com>
+Date:   Thu Nov 17 19:41:49 2022 +0600
+
+    Initialize
