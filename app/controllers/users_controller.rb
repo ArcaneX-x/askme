@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_action :load_user, except: [:index, :create, :new]
+  before_action :load_user, except: [:index, :create, :hello, :new]
   before_action :authorize_user, except: [:index, :new, :create, :show]
 
   def index
@@ -46,6 +46,10 @@ class UsersController < ApplicationController
     File.open(Rails.root.join('public', 'uploads', uploaded_file.original_filename), 'wb') do |file|
       file.write(uploaded_file.read)
     end
+  end
+
+  def hello
+    @questions = @user.questions.order(created_at: :desc)
   end
 
 

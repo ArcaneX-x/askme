@@ -23,7 +23,7 @@
 }
 
 .footer {
-  position: absolute;
+  position: sticky;
   left: 0 ; right: 0; bottom: auto;
   height:[footer-height]
 }
@@ -31,8 +31,4 @@
 .btn-border {
  margin-top: 20px;
   margin-bottom: 20px;
-}
-
-@media (min-width: 992px) {
-  .footer { left: 0 ; right: 0; bottom: 0; }
 }

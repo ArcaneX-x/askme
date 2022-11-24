@@ -6,7 +6,7 @@
       </small>
     </div>
     <p class="card-text">
-      <%= question.text %></p>
+      Q: <%= question.text %></p>
     <% if question.user == current_user %>
     <%= link_to 'Answer', edit_question_path(question) %>
     <%= link_to 'Delete', question_path(question),
@@ -15,7 +15,7 @@
 
     <% if question.answer.present? %>
       <div class="card-text">
-        <%= question.answer %>
+        A: <%= question.answer %>
       </div>
     <% end %>
   </div>
