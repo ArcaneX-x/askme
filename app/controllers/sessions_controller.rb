@@ -4,10 +4,10 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @user = User.authenticate(params[:email], params[:password])
-    if @user.present?
-      session[:user_id] = @user.id
-      redirect_to user_path(@user), notice: 'User successfully login'
+    user = User.authenticate(params[:email], params[:password])
+    if user.present?
+      session[:user_id] = user.id
+      redirect_to user_path(user), notice: 'User successfully login'
     else
       flash.now.alert = 'Invalid email or password'
       render 'new', :layout => nil

@@ -4,13 +4,12 @@ class User < ApplicationRecord
   ITERATIONS = 20000
   DIGEST = OpenSSL::Digest::SHA256.new
   FORMAT_USERNAME = /\A\w+\z/
-  FORMAT_COLOR = /\A#([\h]{3}){1,2}\z/
 
   attr_accessor :password
 
   has_many :questions, dependent: :destroy
 
-  before_validation :username_downcase, if: :username
+  before_validation :username_downcase, :email_downcase
   before_save :encrypt_password, if: :password
 
   validates :username, presence: true,
@@ -26,10 +25,6 @@ class User < ApplicationRecord
             presence: true,
             on: [:create, :destroy],
             confirmation: true
-
-  # validates :profilecolor,
-  #           format: { with: FORMAT_COLOR },
-  #           if: :profilecolor
 
   def self.hash_to_string(password_hash)
     password_hash.unpack('H*')[0]
@@ -62,5 +57,8 @@ end
 
   def username_downcase
     self.username = username.downcase
+  end
+  def email_downcase
+    self.email = email.downcase
   end
 end

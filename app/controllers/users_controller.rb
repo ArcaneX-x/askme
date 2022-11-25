@@ -20,13 +20,20 @@ class UsersController < ApplicationController
     redirect_to root_url, alert: 'You already logged' if current_user.present?
     @user = User.new(user_params)
     if @user.save
-      redirect_to log_in_path, notice: 'User was successfully created'
+      session[:user_id] = @user.id
+      redirect_to root_path, notice: 'User was successfully created'
     else
       render 'new', :layout => nil
     end
   end
 
   def edit
+  end
+
+  def destroy
+    session[:user_id] = nil
+    @user.destroy
+    redirect_to root_url, notice: 'User has been deleted'
   end
 
   def update

@@ -20,6 +20,12 @@
           <%= content_tag :div, message, class: "alert alert-success" %>
         <% end %>
       <% end %>
+        <%= link_to "Delete Profile",
+                    @user,
+                    method: :delete,
+                    data: { confirm: "Are you sure?"},
+                    class:"link-danger"
+        %>
     <h1 class="h3 mb-3 fw-normal">Edit profile</h1>
 
     <%= form_for(@user) do |f| %>
@@ -59,7 +65,8 @@
       <%= f.submit 'Submit', class: 'w-100 btn btn-lg btn-primary' %>
     <% end %>
     </div>
-      <div class="col-md-8 themed-grid-col"></div>
+      <div class="col-md-8 themed-grid-col">
+      </div>
   </div>
 </div>
 
