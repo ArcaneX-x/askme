@@ -38,7 +38,7 @@
     </div>
     <div class="col-6 col-md-4 themed-grid-col">
         <h4>Last Questions:</h4>
-        <% @questions.last(3).each do |question| %>
+        <% @questions.first(3).each do |question| %>
           <%= render partial: 'questions/question', object: question %>
         <% end %>
       <div class="text-center">
