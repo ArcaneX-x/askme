@@ -8,4 +8,11 @@ module ApplicationHelper
     end
   end
 
+  def question_author(question)
+    if question.author.present?
+      link_to "@#{question.author.username}", user_path(question.author)
+    else
+      'Noname'
+    end
+  end
 end

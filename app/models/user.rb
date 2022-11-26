@@ -7,7 +7,17 @@ class User < ApplicationRecord
 
   attr_accessor :password
 
-  has_many :questions, dependent: :destroy
+  has_many :questions,
+           class_name: 'Question',
+           foreign_key: :user_id,
+           inverse_of: :user,
+           dependent: :destroy
+
+  has_many :created_questions,
+           class_name: 'Question',
+           foreign_key: :author_id,
+           inverse_of: :author,
+           dependent: :destroy
 
   before_validation :username_downcase, :email_downcase
   before_save :encrypt_password, if: :password
