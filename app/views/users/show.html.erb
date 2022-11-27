@@ -6,6 +6,11 @@
   }
 </style>
 <div class="container">
+  <% if flash.any? %>
+    <% flash.each do |name, message| %>
+      <%= content_tag :div, message, class: "alert alert-success" %>
+    <% end %>
+  <% end %>
   <div class="row mb-3">
     <div class="col-md-8 themed-grid-col">
       <p class="title-small">Questions: <%= @questions_count %>
@@ -30,11 +35,7 @@
           <%= submit_tag 'Ask Question', class: 'btn btn-primary btn-border' %>
         <% end %>
       </div>
-      <% if flash.any? %>
-        <% flash.each do |name, message| %>
-          <%= content_tag :div, message, class: "alert alert-success" %>
-        <% end %>
-      <% end %>
+
     </div>
     <div class="col-6 col-md-4 themed-grid-col">
         <h4>Last Questions:</h4>
