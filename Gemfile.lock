@@ -172,7 +172,7 @@ DEPENDENCIES
   byebug
   importmap-rails
   jquery-rails
-  pg (~> 1.4, >= 1.4.5)
+  pg
   puma (~> 5.0)
   rails (~> 7.0.4)
   sprockets-rails

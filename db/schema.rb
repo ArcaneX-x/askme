@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_26_074009) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_20_173220) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "hashtags", force: :cascade do |t|
+    t.string "text"
+    t.bigint "question_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_hashtags_on_question_id"
+  end
+
   create_table "questions", force: :cascade do |t|
     t.string "text"
     t.string "answer"
@@ -33,5 +44,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_26_074009) do
     t.string "avatar_url"
   end
 
+  add_foreign_key "hashtags", "questions"
   add_foreign_key "questions", "users"
 end
