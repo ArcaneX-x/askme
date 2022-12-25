@@ -1,10 +1,12 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @hashtag %>
-
-<div>
-  <%= link_to "Edit this hashtag", edit_hashtag_path(@hashtag) %> |
-  <%= link_to "Back to hashtags", hashtags_path %>
-
-  <%= button_to "Destroy this hashtag", @hashtag, method: :delete %>
+<div class="container text-center">
+            <h3><%= "##{@hashtag.name}" %></h3>
+  <div class="row row-cols-1">
+      <% @hashtag.questions.each do |hashtag| %>
+    <div class="col">
+        <%= link_to user_path(hashtag.user_id) do %>
+          <%= without_tags(hashtag.text) %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>

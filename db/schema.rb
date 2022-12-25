@@ -10,16 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_20_173220) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_24_145650) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "hashtags", force: :cascade do |t|
-    t.string "text"
+  create_table "hashtaggables", force: :cascade do |t|
     t.bigint "question_id", null: false
+    t.bigint "hashtag_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["question_id"], name: "index_hashtags_on_question_id"
+    t.index ["hashtag_id"], name: "index_hashtaggables_on_hashtag_id"
+    t.index ["question_id"], name: "index_hashtaggables_on_question_id"
+  end
+
+  create_table "hashtags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "questions", force: :cascade do |t|
@@ -27,7 +34,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_20_173220) do
     t.string "answer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.integer "author_id"
     t.index ["author_id"], name: "index_questions_on_author_id"
     t.index ["user_id"], name: "index_questions_on_user_id"
@@ -44,6 +51,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_20_173220) do
     t.string "avatar_url"
   end
 
-  add_foreign_key "hashtags", "questions"
+  add_foreign_key "hashtaggables", "hashtags"
+  add_foreign_key "hashtaggables", "questions"
   add_foreign_key "questions", "users"
 end

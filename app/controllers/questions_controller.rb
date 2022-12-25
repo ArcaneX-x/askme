@@ -47,7 +47,7 @@ class QuestionsController < ApplicationController
         params[:question][:user_id].to_i == current_user.id
         params.require(:question).permit(:user_id, :text, :answer)
       else
-        params.require(:question).permit(:user_id, :text)
+        params.require(:question).permit(:user_id, :text, :name)
       end
     end
 end

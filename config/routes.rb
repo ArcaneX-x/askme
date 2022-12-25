@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :hashtags
   root 'users#index'
 
   resources :users
