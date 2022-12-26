@@ -20,6 +20,16 @@
       </div>
     <% end %>
 
+    <div class="card-text">
+    <small class="text-muted">
+      <% @hashtags.each do |tag| %>
+        <%= link_to tag, class:"link-info", style:"text-decoration:none" do %>
+          <%= "##{tag.name}" %>
+        <% end %>
+      <% end %>
+    </small>
+    </div>
+
   <div class="overflow-hidden" style="max-height: 30vh;">
     <div class="container px-5">
       <%= image_tag 'bootstrap-docs.png', class: "img-fluid border rounded-3 shadow-lg mb-4", alt:"Example image", width:"700" ,height:"500", loading:"lazy" %>
