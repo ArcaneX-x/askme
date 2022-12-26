@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :questions, except: [:show, :new, :index]
+  resources :hashtags, only: [:show], param: :text
 
 
   get '/users/:id/questions' => 'users#questions', as: :user_questions

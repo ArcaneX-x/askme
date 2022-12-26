@@ -7,18 +7,31 @@
       </small>
     </div>
     <div class="card-title">
-      Q: <%= question.text %>
+      Q: <%= without_tags(question.text) %>
     </div>
 
     <% if question.answer.present? %>
       <div class="card-title card-text bg-light">
-        A: <%= question.answer %>
+        A: <%= without_tags(question.answer) %>
       </div>
     <% end %>
     <% if question.user == current_user %>
-      <%= link_to 'Answer', edit_question_path(question) %>
+      <% if question.answer.present? %>
+        <%= link_to 'Edit', edit_question_path(question) %>
+      <% else %>
+        <%= link_to 'Answer', edit_question_path(question) %>
+      <% end %>
       <%= link_to 'Delete', question_path(question),
-                  method: :delete, data: {confirm: 'Are you sure?'} %>
+                  method: :delete, data: { confirm: 'Are you sure?' } %>
     <% end %>
+    <div class="card-text">
+    <small class="text-muted">
+    <% question.hashtags.each do |tag| %>
+    <%= link_to tag, class:"link-info", style:"text-decoration:none" do %>
+      <%= "##{tag.name}" %>
+        <% end %>
+    <% end %>
+    </small>
+    </div>
   </div>
 </div>

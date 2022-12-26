@@ -1,0 +1,12 @@
+<div class="container text-center">
+            <h3><%= "##{@hashtag.name}" %></h3>
+  <div class="row row-cols-1">
+      <% @hashtag.questions.each do |hashtag| %>
+    <div class="col">
+        <%= link_to user_path(hashtag.user_id) do %>
+          <%= without_tags(hashtag.text) %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

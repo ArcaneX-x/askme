@@ -5,6 +5,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.last(5)
+    @hashtags = Hashtag.last(5)
   end
 
   def new
