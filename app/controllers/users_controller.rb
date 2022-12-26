@@ -5,7 +5,8 @@ class UsersController < ApplicationController
 
   def index
     @users = User.last(5)
-    @hashtags = Hashtag.last(5)
+    @count_top_hashtags = Hashtaggable.group(:hashtag_id).count.keys.sort.last(7)
+    @top_hashtags = Hashtag.find(@count_top_hashtags)
   end
 
   def new
