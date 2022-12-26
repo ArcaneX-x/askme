@@ -6,7 +6,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.last(5)
-    @top_hashtags = Hashtag.where(id: Hashtaggable.select(:hashtag_id).group(:hashtag_id).order('COUNT(hashtag_id) desc')).limit(7)
+    @top_hashtags = Hashtag.where(id: HashtagQuestion.select(:hashtag_id).group(:hashtag_id).order('COUNT(hashtag_id) desc')).limit(7)
   end
 
   def new
