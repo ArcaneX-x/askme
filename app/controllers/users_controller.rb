@@ -5,8 +5,9 @@ class UsersController < ApplicationController
 
   def index
     @users = User.last(5)
-    @count_top_hashtags = Hashtaggable.group(:hashtag_id).count.keys.sort.last(7)
-    @top_hashtags = Hashtag.find(@count_top_hashtags)
+    # получаем в таком подходе 2 запроса, во втором один запрос к базе
+    # Hashtag.where(id: Hashtaggable.group(:hashtag_id).count.keys.sort).last(7)
+    @top_hashtags = Hashtag.where(id: Hashtaggable.select(:hashtag_id).group(:hashtag_id).order('COUNT(hashtag_id) asc')).last(7)
   end
 
   def new
