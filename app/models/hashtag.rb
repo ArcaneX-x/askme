@@ -1,5 +1,6 @@
 class Hashtag < ApplicationRecord
   REGEXP_H = /#[[:word:]:?-]+/
+
   has_many :hashtaggables, dependent: :destroy
   has_many :questions, through: :hashtaggables
 

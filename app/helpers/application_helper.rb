@@ -15,4 +15,7 @@ module ApplicationHelper
       'Noname'
     end
   end
+
+
+
 end
