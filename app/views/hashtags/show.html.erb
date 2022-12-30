@@ -4,7 +4,7 @@
       <% @hashtag.questions.each do |hashtag| %>
     <div class="col">
         <%= link_to user_path(hashtag.user_id) do %>
-          <%= without_tags(hashtag.text) %>
+          <%= hashtag.text %>
         <% end %>
       <% end %>
     </div>

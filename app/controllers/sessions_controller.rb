@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class SessionsController < ApplicationController
   def new
-    render :layout => nil
+    render layout: nil
   end
 
   def create
@@ -10,7 +12,7 @@ class SessionsController < ApplicationController
       redirect_to user_path(user), notice: 'User successfully login'
     else
       flash.now.alert = 'Invalid email or password'
-      render 'new', :layout => nil
+      render 'new', layout: nil
     end
   end
 

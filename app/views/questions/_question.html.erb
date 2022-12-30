@@ -7,12 +7,12 @@
       </small>
     </div>
     <div class="card-title">
-      Q: <%= without_tags(question.text) %>
+      Q: <%= text_with_hashtag_link(question.text) %>
     </div>
 
     <% if question.answer.present? %>
       <div class="card-title card-text bg-light">
-        A: <%= without_tags(question.answer) %>
+        A: <%= text_with_hashtag_link(question.answer) %>
       </div>
     <% end %>
     <% if question.user == current_user %>
