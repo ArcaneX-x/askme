@@ -42081,3 +42081,396 @@ Migrating to RemoveFieldAvatarUrlFromUsers (20221231115014)
   [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(5324528360807790330)[0m
   [1m[36mActiveRecord::SchemaMigration Pluck (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
   [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+Started GET "/" for ::1 at 2022-12-31 18:05:16 +0600
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT $1[0m  [["LIMIT", 5]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mHashtag Load (1.4ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."id" IN (SELECT "hashtag_questions"."hashtag_id" FROM "hashtag_questions" GROUP BY "hashtag_questions"."hashtag_id" ORDER BY COUNT(hashtag_id) desc) LIMIT $1[0m  [["LIMIT", 7]]
+  ↳ app/views/users/index.html.erb:27
+  Rendered users/index.html.erb within layouts/application (Duration: 11.7ms | Allocations: 3654)
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `current_user'
+  Rendered layout layouts/application.html.erb (Duration: 171.4ms | Allocations: 31014)
+Completed 200 OK in 195ms (Views: 171.0ms | ActiveRecord: 2.4ms | Allocations: 40421)
+
+
+Started GET "/log_out" for ::1 at 2022-12-31 18:05:18 +0600
+Processing by SessionsController#destroy as HTML
+Redirected to http://localhost:3000/
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms | Allocations: 600)
+
+
+Started GET "/" for ::1 at 2022-12-31 18:05:18 +0600
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT $1[0m  [["LIMIT", 5]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mHashtag Load (0.7ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."id" IN (SELECT "hashtag_questions"."hashtag_id" FROM "hashtag_questions" GROUP BY "hashtag_questions"."hashtag_id" ORDER BY COUNT(hashtag_id) desc) LIMIT $1[0m  [["LIMIT", 7]]
+  ↳ app/views/users/index.html.erb:27
+  Rendered users/index.html.erb within layouts/application (Duration: 4.7ms | Allocations: 2160)
+  Rendered layout layouts/application.html.erb (Duration: 13.4ms | Allocations: 6065)
+Completed 200 OK in 17ms (Views: 13.4ms | ActiveRecord: 1.0ms | Allocations: 7201)
+
+
+Started GET "/log_in" for ::1 at 2022-12-31 18:05:19 +0600
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb
+  Rendered sessions/new.html.erb (Duration: 18.1ms | Allocations: 4401)
+Completed 200 OK in 21ms (Views: 20.3ms | ActiveRecord: 0.0ms | Allocations: 4932)
+
+
+Started GET "/sign_up" for ::1 at 2022-12-31 18:05:23 +0600
+Processing by UsersController#new as HTML
+  Rendering users/new.html.erb
+  Rendered users/new.html.erb (Duration: 14.2ms | Allocations: 2802)
+Completed 200 OK in 17ms (Views: 15.8ms | ActiveRecord: 0.0ms | Allocations: 3342)
+
+
+Started POST "/users" for ::1 at 2022-12-31 18:05:40 +0600
+Processing by UsersController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"mycryptofound@gmail.com", "username"=>"Axelrod", "name"=>"Mike", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Submit"}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:24:in `create'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "axelrod"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:24:in `create'
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "mycryptofound@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:24:in `create'
+  [1m[36mUser Create (4.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "username", "created_at", "updated_at", "email", "password_hash", "password_salt", "avatar_url", "avatar") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["name", "Mike"], ["username", "axelrod"], ["created_at", "2022-12-31 12:05:40.230774"], ["updated_at", "2022-12-31 12:05:40.230774"], ["email", "mycryptofound@gmail.com"], ["password_hash", "[FILTERED]"], ["password_salt", "[FILTERED]"], ["avatar_url", nil], ["avatar", nil]]
+  ↳ app/controllers/users_controller.rb:24:in `create'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/users_controller.rb:24:in `create'
+Completed 500 Internal Server Error in 42ms (ActiveRecord: 6.4ms | Allocations: 6292)
+
+
+  
+ActiveRecord::StatementInvalid (PG::UndefinedColumn: ERROR:  column "avatar_url" of relation "users" does not exist
+LINE 1: ...d_at", "email", "password_hash", "password_salt", "avatar_ur...
+                                                             ^
+):
+  
+app/controllers/users_controller.rb:24:in `create'
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5324528360807790330)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(5324528360807790330)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+Started POST "/users" for ::1 at 2022-12-31 18:10:29 +0600
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"mycryptofound@gmail.com", "username"=>"Axelrod", "name"=>"Mike", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Submit"}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:24:in `create'
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "axelrod"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:24:in `create'
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "mycryptofound@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:24:in `create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/users_controller.rb:24:in `create'
+  Rendering users/new.html.erb
+  Rendered users/new.html.erb (Duration: 317.1ms | Allocations: 78047)
+Completed 200 OK in 373ms (Views: 327.8ms | ActiveRecord: 5.4ms | Allocations: 97035)
+
+
+Started POST "/users" for ::1 at 2022-12-31 18:10:35 +0600
+Processing by UsersController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"mycryptofound@gmail.com", "username"=>"axelrod", "name"=>"Mike", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Submit"}
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:24:in `create'
+  [1m[36mUser Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "axelrod"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:24:in `create'
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "mycryptofound@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:24:in `create'
+  [1m[36mUser Create (8.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "username", "created_at", "updated_at", "email", "password_hash", "password_salt", "avatar") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["name", "Mike"], ["username", "axelrod"], ["created_at", "2022-12-31 12:10:35.329114"], ["updated_at", "2022-12-31 12:10:35.329114"], ["email", "mycryptofound@gmail.com"], ["password_hash", "[FILTERED]"], ["password_salt", "[FILTERED]"], ["avatar", nil]]
+  ↳ app/controllers/users_controller.rb:24:in `create'
+  [1m[36mTRANSACTION (1.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:24:in `create'
+Redirected to http://localhost:3000/
+Completed 302 Found in 53ms (ActiveRecord: 11.0ms | Allocations: 5645)
+
+
+Started GET "/" for ::1 at 2022-12-31 18:10:35 +0600
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT $1[0m  [["LIMIT", 5]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  Rendered users/index.html.erb within layouts/application (Duration: 6.2ms | Allocations: 3002)
+  Rendered layout layouts/application.html.erb (Duration: 6.5ms | Allocations: 3102)
+Completed 500 Internal Server Error in 28ms (ActiveRecord: 2.9ms | Allocations: 8663)
+
+
+  
+ActionView::Template::Error (Nil location provided. Can't build URI.):
+    16:     <% @users.each do |user| %>
+    17:       <div class="users-list-item">
+    18:         <div class="user-image-div user-image-div-small">
+    19:           <%= link_to image_tag(user.avatar.url, class: 'user-image'), user_path(user) %>
+    20:         </div>
+    21:       </div>
+    22:     <% end %>
+  
+app/views/users/index.html.erb:19
+app/views/users/index.html.erb:16:in `each'
+app/views/users/index.html.erb:16
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+Started GET "/" for ::1 at 2022-12-31 18:20:09 +0600
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT $1[0m  [["LIMIT", 5]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mHashtag Load (1.1ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."id" IN (SELECT "hashtag_questions"."hashtag_id" FROM "hashtag_questions" GROUP BY "hashtag_questions"."hashtag_id" ORDER BY COUNT(hashtag_id) desc) LIMIT $1[0m  [["LIMIT", 7]]
+  ↳ app/views/users/index.html.erb:27
+  Rendered users/index.html.erb within layouts/application (Duration: 117.4ms | Allocations: 28258)
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `current_user'
+  Rendered layout layouts/application.html.erb (Duration: 131.4ms | Allocations: 34916)
+Completed 200 OK in 185ms (Views: 131.7ms | ActiveRecord: 13.1ms | Allocations: 51680)
+
+
+Started GET "/users/2" for ::1 at 2022-12-31 18:20:13 +0600
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:72:in `load_user'
+  [1m[36mQuestion Count (1.0ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1[0m  [["user_id", 2]]
+  ↳ app/controllers/users_controller.rb:52:in `show'
+  [1m[36mQuestion Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1 AND "questions"."answer" IS NOT NULL[0m  [["user_id", 2]]
+  ↳ app/controllers/users_controller.rb:53:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `current_user'
+  [1m[36mQuestion Load (0.3ms)[0m  [1m[34mSELECT "questions".* FROM "questions" WHERE "questions"."user_id" = $1 ORDER BY "questions"."created_at" DESC LIMIT $2[0m  [["user_id", 2], ["LIMIT", 3]]
+  ↳ app/views/users/show.html.erb:51
+  Rendered users/show.html.erb within layouts/application (Duration: 10.7ms | Allocations: 3205)
+  Rendered layout layouts/application.html.erb (Duration: 17.4ms | Allocations: 7008)
+Completed 200 OK in 71ms (Views: 17.4ms | ActiveRecord: 6.6ms | Allocations: 19986)
+
+
+Started GET "/users/2" for ::1 at 2022-12-31 18:20:15 +0600
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:72:in `load_user'
+  [1m[36mQuestion Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1[0m  [["user_id", 2]]
+  ↳ app/controllers/users_controller.rb:52:in `show'
+  [1m[36mQuestion Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1 AND "questions"."answer" IS NOT NULL[0m  [["user_id", 2]]
+  ↳ app/controllers/users_controller.rb:53:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `current_user'
+  [1m[36mQuestion Load (0.5ms)[0m  [1m[34mSELECT "questions".* FROM "questions" WHERE "questions"."user_id" = $1 ORDER BY "questions"."created_at" DESC LIMIT $2[0m  [["user_id", 2], ["LIMIT", 3]]
+  ↳ app/views/users/show.html.erb:51
+  Rendered users/show.html.erb within layouts/application (Duration: 9.8ms | Allocations: 2235)
+  Rendered layout layouts/application.html.erb (Duration: 15.0ms | Allocations: 6016)
+Completed 200 OK in 23ms (Views: 14.7ms | ActiveRecord: 2.2ms | Allocations: 8145)
+
+
+Started GET "/users/2/edit" for ::1 at 2022-12-31 18:20:16 +0600
+Processing by UsersController#edit as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "id"=>"2"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:72:in `load_user'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `current_user'
+  Rendering layout layouts/application.html.erb
+  Rendering users/edit.html.erb within layouts/application
+  Rendered users/edit.html.erb within layouts/application (Duration: 14.9ms | Allocations: 2352)
+  Rendered layout layouts/application.html.erb (Duration: 24.3ms | Allocations: 6403)
+Completed 200 OK in 32ms (Views: 25.3ms | ActiveRecord: 0.8ms | Allocations: 8204)
+
+
+Started PATCH "/users/2" for ::1 at 2022-12-31 18:20:36 +0600
+Processing by UsersController#update as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"mycryptofound@gmail.com", "username"=>"axelrod", "name"=>"Mike", "avatar"=>#<ActionDispatch::Http::UploadedFile:0x00007f0c51b4de08 @tempfile=#<Tempfile:/tmp/RackMultipart20221231-29289-iumvnj.jpg>, @original_filename="event.jpg", @content_type="image/jpeg", @headers="Content-Disposition: form-data; name=\"user[avatar]\"; filename=\"event.jpg\"\r\nContent-Type: image/jpeg\r\n">, "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Submit", "id"=>"2"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:72:in `load_user'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `current_user'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:41:in `update'
+  [1m[36mUser Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 AND "users"."id" != $2 LIMIT $3[0m  [["username", "axelrod"], ["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:41:in `update'
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 AND "users"."id" != $2 LIMIT $3[0m  [["email", "mycryptofound@gmail.com"], ["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:41:in `update'
+  [1m[36mUser Update (0.5ms)[0m  [1m[33mUPDATE "users" SET "updated_at" = $1, "avatar" = $2 WHERE "users"."id" = $3[0m  [["updated_at", "2022-12-31 12:20:36.655022"], ["avatar", "event.jpg"], ["id", 2]]
+  ↳ app/controllers/users_controller.rb:41:in `update'
+  [1m[36mTRANSACTION (1.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:41:in `update'
+Redirected to http://localhost:3000/users/2
+Completed 302 Found in 376ms (ActiveRecord: 3.6ms | Allocations: 8342)
+
+
+Started GET "/users/2" for ::1 at 2022-12-31 18:20:36 +0600
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:72:in `load_user'
+  [1m[36mQuestion Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1[0m  [["user_id", 2]]
+  ↳ app/controllers/users_controller.rb:52:in `show'
+  [1m[36mQuestion Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1 AND "questions"."answer" IS NOT NULL[0m  [["user_id", 2]]
+  ↳ app/controllers/users_controller.rb:53:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `current_user'
+  [1m[36mQuestion Load (0.3ms)[0m  [1m[34mSELECT "questions".* FROM "questions" WHERE "questions"."user_id" = $1 ORDER BY "questions"."created_at" DESC LIMIT $2[0m  [["user_id", 2], ["LIMIT", 3]]
+  ↳ app/views/users/show.html.erb:51
+  Rendered users/show.html.erb within layouts/application (Duration: 3.8ms | Allocations: 1759)
+  Rendered layout layouts/application.html.erb (Duration: 19.1ms | Allocations: 5842)
+Completed 200 OK in 25ms (Views: 19.2ms | ActiveRecord: 1.4ms | Allocations: 7993)
+
+
+Started GET "/" for ::1 at 2022-12-31 18:20:38 +0600
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT $1[0m  [["LIMIT", 5]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mHashtag Load (0.7ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."id" IN (SELECT "hashtag_questions"."hashtag_id" FROM "hashtag_questions" GROUP BY "hashtag_questions"."hashtag_id" ORDER BY COUNT(hashtag_id) desc) LIMIT $1[0m  [["LIMIT", 7]]
+  ↳ app/views/users/index.html.erb:27
+  Rendered users/index.html.erb within layouts/application (Duration: 24.2ms | Allocations: 2115)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `current_user'
+  Rendered layout layouts/application.html.erb (Duration: 74.0ms | Allocations: 6469)
+Completed 200 OK in 88ms (Views: 73.6ms | ActiveRecord: 1.5ms | Allocations: 7463)
+
+
+Started GET "/log_out" for ::1 at 2022-12-31 18:20:41 +0600
+Processing by SessionsController#destroy as HTML
+Redirected to http://localhost:3000/
+Completed 302 Found in 6ms (ActiveRecord: 0.0ms | Allocations: 585)
+
+
+Started GET "/" for ::1 at 2022-12-31 18:20:41 +0600
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT $1[0m  [["LIMIT", 5]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mHashtag Load (1.2ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."id" IN (SELECT "hashtag_questions"."hashtag_id" FROM "hashtag_questions" GROUP BY "hashtag_questions"."hashtag_id" ORDER BY COUNT(hashtag_id) desc) LIMIT $1[0m  [["LIMIT", 7]]
+  ↳ app/views/users/index.html.erb:27
+  Rendered users/index.html.erb within layouts/application (Duration: 10.9ms | Allocations: 2285)
+  Rendered layout layouts/application.html.erb (Duration: 21.4ms | Allocations: 6155)
+Completed 200 OK in 28ms (Views: 21.0ms | ActiveRecord: 1.6ms | Allocations: 7307)
+
+
+Started GET "/sign_up" for ::1 at 2022-12-31 18:20:45 +0600
+Processing by UsersController#new as HTML
+  Rendering users/new.html.erb
+  Rendered users/new.html.erb (Duration: 7.7ms | Allocations: 2815)
+Completed 200 OK in 10ms (Views: 8.4ms | ActiveRecord: 0.0ms | Allocations: 3346)
+
+
+Started POST "/users" for ::1 at 2022-12-31 18:21:00 +0600
+Processing by UsersController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user"=>{"email"=>"test@gmail.com", "username"=>"Masha", "name"=>"Maria", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Submit"}
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:24:in `create'
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "masha"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:24:in `create'
+  [1m[36mUser Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test@gmail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:24:in `create'
+  [1m[36mUser Create (0.9ms)[0m  [1m[32mINSERT INTO "users" ("name", "username", "created_at", "updated_at", "email", "password_hash", "password_salt", "avatar") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["name", "Maria"], ["username", "masha"], ["created_at", "2022-12-31 12:21:00.835954"], ["updated_at", "2022-12-31 12:21:00.835954"], ["email", "test@gmail.com"], ["password_hash", "[FILTERED]"], ["password_salt", "[FILTERED]"], ["avatar", nil]]
+  ↳ app/controllers/users_controller.rb:24:in `create'
+  [1m[36mTRANSACTION (1.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:24:in `create'
+Redirected to http://localhost:3000/
+Completed 302 Found in 42ms (ActiveRecord: 4.0ms | Allocations: 4394)
+
+
+Started GET "/" for ::1 at 2022-12-31 18:21:00 +0600
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT $1[0m  [["LIMIT", 5]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mHashtag Load (0.6ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."id" IN (SELECT "hashtag_questions"."hashtag_id" FROM "hashtag_questions" GROUP BY "hashtag_questions"."hashtag_id" ORDER BY COUNT(hashtag_id) desc) LIMIT $1[0m  [["LIMIT", 7]]
+  ↳ app/views/users/index.html.erb:27
+  Rendered users/index.html.erb within layouts/application (Duration: 5.7ms | Allocations: 2712)
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `current_user'
+  Rendered layout layouts/application.html.erb (Duration: 16.7ms | Allocations: 7045)
+Completed 200 OK in 21ms (Views: 16.0ms | ActiveRecord: 1.7ms | Allocations: 8033)
+
+
+Started GET "/" for ::1 at 2022-12-31 18:21:03 +0600
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT $1[0m  [["LIMIT", 5]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mHashtag Load (0.6ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."id" IN (SELECT "hashtag_questions"."hashtag_id" FROM "hashtag_questions" GROUP BY "hashtag_questions"."hashtag_id" ORDER BY COUNT(hashtag_id) desc) LIMIT $1[0m  [["LIMIT", 7]]
+  ↳ app/views/users/index.html.erb:27
+  Rendered users/index.html.erb within layouts/application (Duration: 5.6ms | Allocations: 2640)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `current_user'
+  Rendered layout layouts/application.html.erb (Duration: 17.0ms | Allocations: 6963)
+Completed 200 OK in 20ms (Views: 16.7ms | ActiveRecord: 1.2ms | Allocations: 7950)
+
+
+Started GET "/specialists" for ::1 at 2022-12-31 18:21:04 +0600
+Processing by UsersController#specialists as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/specialists.html.erb within layouts/application
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/specialists.html.erb:12:in `each_with_index'
+  Rendered users/specialists.html.erb within layouts/application (Duration: 5.0ms | Allocations: 1928)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `current_user'
+  Rendered layout layouts/application.html.erb (Duration: 13.2ms | Allocations: 6472)
+Completed 200 OK in 14ms (Views: 13.1ms | ActiveRecord: 0.6ms | Allocations: 6784)
+
+
+Started GET "/users/3" for ::1 at 2022-12-31 18:21:06 +0600
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:72:in `load_user'
+  [1m[36mQuestion Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/users_controller.rb:52:in `show'
+  [1m[36mQuestion Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1 AND "questions"."answer" IS NOT NULL[0m  [["user_id", 3]]
+  ↳ app/controllers/users_controller.rb:53:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `current_user'
+  [1m[36mQuestion Load (0.4ms)[0m  [1m[34mSELECT "questions".* FROM "questions" WHERE "questions"."user_id" = $1 ORDER BY "questions"."created_at" DESC LIMIT $2[0m  [["user_id", 3], ["LIMIT", 3]]
+  ↳ app/views/users/show.html.erb:51
+  Rendered users/show.html.erb within layouts/application (Duration: 5.6ms | Allocations: 2241)
+  Rendered layout layouts/application.html.erb (Duration: 13.1ms | Allocations: 6021)
+Completed 200 OK in 19ms (Views: 12.9ms | ActiveRecord: 1.6ms | Allocations: 8130)
+
+
+Started GET "/" for ::1 at 2022-12-31 18:21:08 +0600
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT $1[0m  [["LIMIT", 5]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mHashtag Load (0.9ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."id" IN (SELECT "hashtag_questions"."hashtag_id" FROM "hashtag_questions" GROUP BY "hashtag_questions"."hashtag_id" ORDER BY COUNT(hashtag_id) desc) LIMIT $1[0m  [["LIMIT", 7]]
+  ↳ app/views/users/index.html.erb:27
+  Rendered users/index.html.erb within layouts/application (Duration: 6.1ms | Allocations: 2669)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `current_user'
+  Rendered layout layouts/application.html.erb (Duration: 14.1ms | Allocations: 6996)
+Completed 200 OK in 21ms (Views: 13.7ms | ActiveRecord: 1.6ms | Allocations: 7983)
+
+
