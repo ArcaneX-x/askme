@@ -16,7 +16,7 @@
     <% @users.each do |user| %>
       <div class="users-list-item">
         <div class="user-image-div user-image-div-small">
-          <%= link_to image_tag(user_avatar(user), class: 'user-image'), user_path(user) %>
+          <%= link_to image_tag(user.avatar.url, class: 'user-image'), user_path(user) %>
         </div>
       </div>
     <% end %>

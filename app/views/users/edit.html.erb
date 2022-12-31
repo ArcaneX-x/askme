@@ -50,7 +50,10 @@
       </div>
 
       <div class="form-group">
-        <%= f.text_field :avatar_url, class: 'form-control', placeholder: "Avatar URL" %>
+          <p><%= image_tag(@user.avatar.url) if @user.avatar? %></p>
+          <%= f.file_field :avatar %>
+
+        <%#= f.text_field :avatar_url, class: 'form-control', placeholder: "Avatar URL" %>
       </div>
 
       <p>Leave password blank or fill</p>

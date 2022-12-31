@@ -26,7 +26,7 @@
       <%= @user.name %>
     </h1>
     <div class="user-image-div">
-      <%= image_tag user_avatar(@user), class: 'user-image', alt: '[Фото]' %>
+      <%= image_tag (@user.avatar.url), class: 'user-image', alt: '[Фото]' %>
     </div>
     <h3 class="title-small buffer-both">
       @<%= @user.username %>

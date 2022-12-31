@@ -6,6 +6,7 @@ class User < ApplicationRecord
   ITERATIONS = 20_000
   DIGEST = OpenSSL::Digest.new('SHA256')
   FORMAT_USERNAME = /\A\w+\z/
+  mount_uploader :avatar, AvatarUploader
 
   attr_accessor :password
 

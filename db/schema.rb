@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_26_145056) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_31_115014) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -49,7 +49,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_145056) do
     t.string "email"
     t.string "password_hash"
     t.string "password_salt"
-    t.string "avatar_url"
+    t.string "avatar"
   end
 
   add_foreign_key "hashtag_questions", "hashtags"
