@@ -47,12 +47,16 @@
     <% else %>
       <div class="col-6 col-md-4 themed-grid-col">
     <% end %>
+      <% if @questions.any? %>
     <h4>Last Questions:</h4>
     <% @questions.first(3).each do |question| %>
       <%= render partial: 'questions/question', object: question %>
     <% end %>
     <div class="text-center">
-      <%= link_to 'All questions', user_questions_path(@user.id) %>
+          <%= link_to 'All questions', user_questions_path(@user.id) %>
+      <% else %>
+        <h4>User don't have questions yet</h4>
+      <% end %>
     </div>
     </div>
     </div>
