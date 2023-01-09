@@ -25,12 +25,12 @@
   </style>
 
   <!-- Custom styles for this template -->
-  <%= stylesheet_link_tag 'signin', media: 'all' %>
+  <%= stylesheet_link_tag "signin", media: "all" %>
 </head>
 <body class="text-center">
 
 <main class="form-signin">
-  <%= image_tag 'ask.png', alt:"", width:"72", height:"72" %>
+  <%= image_tag "ask.png", alt: "", width: "72", height: "72" %>
   <h1 class="h3 mb-3 fw-normal">Please Login</h1>
   <% if flash.notice %>
     <% flash.each do |type, message| %>
@@ -41,17 +41,17 @@
       <%= content_tag :div, message, class: "alert alert-danger" %>
     <% end %>
   <% end %>
-  <%= form_tag sessions_path do %>
+  <%= form_tag session_path do %>
 
     <div class="form-group">
-      <%= text_field_tag :email, params[:email], class: 'form-control', placeholder: "Enter email or username" %>
+      <%= text_field_tag :email, params[:email], class: "form-control", placeholder: "Enter email or username" %>
     </div>
 
     <div class="form-group">
-      <%= password_field_tag :password, '', class: 'form-control', placeholder: "Password" %>
+      <%= password_field_tag :password, "", class: "form-control", placeholder: "Password" %>
     </div>
 
-    <%= submit_tag 'Login', class: 'w-100 btn btn-lg btn-primary' %>
+    <%= submit_tag "Login", class: "w-100 btn btn-lg btn-primary" %>
   <% end %>
   <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
 </main>
