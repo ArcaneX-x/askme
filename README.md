@@ -1,24 +1,29 @@
-# README
+# Askme
+## _Ask any question _
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ask any question and get an answer.
+## Features
+- #Hashtag function
+- Easy registration
+- Upload avatars
+- Rating of users
 
-Things you may want to cover:
+## Installation
 
-* Ruby version
+Download the app.
 
-* System dependencies
+```sh
+Install Ruby, Rails and Postgresql
+rails db:migrate
+rails s
+```
 
-* Configuration
+Run the application
 
-* Database creation
+```sh
+http://127.0.0.1:3000/
+```
 
-* Database initialization
+## License
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+**Free Software, Hell Yeah!**
