@@ -5,7 +5,7 @@ module ApplicationHelper
     if user.avatar?
       user.avatar.url
     else
-      asset_path 'default.png'
+      asset_path 'default_avatar.png'
     end
   end
 

@@ -94,3 +94,674 @@ Processing by UsersController#index as HTML
 Completed 200 OK in 16ms (Views: 12.4ms | ActiveRecord: 1.1ms | Allocations: 8693)
 
 
+Started GET "/users/5" for 127.0.0.1 at 2023-01-27 18:38:12 +0600
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:72:in `load_user'
+  [1m[36mQuestion Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1[0m  [["user_id", 5]]
+  ↳ app/controllers/users_controller.rb:52:in `show'
+  [1m[36mQuestion Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1 AND "questions"."answer" IS NOT NULL[0m  [["user_id", 5]]
+  ↳ app/controllers/users_controller.rb:53:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  [1m[36mQuestion Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."user_id" = $1 LIMIT $2[0m  [["user_id", 5], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.erb:50
+  Rendered users/show.html.erb within layouts/application (Duration: 263.5ms | Allocations: 51000)
+  Rendered layout layouts/application.html.erb (Duration: 273.5ms | Allocations: 55474)
+Completed 200 OK in 338ms (Views: 276.4ms | ActiveRecord: 12.0ms | Allocations: 78933)
+
+
+Started GET "/" for 127.0.0.1 at 2023-01-27 18:38:23 +0600
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT $1[0m  [["LIMIT", 5]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mHashtag Load (1.0ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."id" IN (SELECT "hashtag_questions"."hashtag_id" FROM "hashtag_questions" GROUP BY "hashtag_questions"."hashtag_id" ORDER BY COUNT(hashtag_id) desc) LIMIT $1[0m  [["LIMIT", 7]]
+  ↳ app/views/users/index.html.erb:27
+  Rendered users/index.html.erb within layouts/application (Duration: 14.8ms | Allocations: 5663)
+  Rendered layout layouts/application.html.erb (Duration: 20.5ms | Allocations: 9474)
+Completed 200 OK in 37ms (Views: 17.3ms | ActiveRecord: 6.8ms | Allocations: 13909)
+
+
+Started GET "/users/3" for 127.0.0.1 at 2023-01-27 18:38:25 +0600
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:72:in `load_user'
+  [1m[36mQuestion Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/users_controller.rb:52:in `show'
+  [1m[36mQuestion Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1 AND "questions"."answer" IS NOT NULL[0m  [["user_id", 3]]
+  ↳ app/controllers/users_controller.rb:53:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  [1m[36mQuestion Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."user_id" = $1 LIMIT $2[0m  [["user_id", 3], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.erb:50
+  [1m[36mQuestion Load (0.3ms)[0m  [1m[34mSELECT "questions".* FROM "questions" WHERE "questions"."user_id" = $1 ORDER BY "questions"."created_at" DESC LIMIT $2[0m  [["user_id", 3], ["LIMIT", 3]]
+  ↳ app/views/users/show.html.erb:52
+  [1m[36mHashtag Load (0.4ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."name" = $1 LIMIT $2[0m  [["name", "women"], ["LIMIT", 1]]
+  ↳ app/helpers/questions_helper.rb:6:in `block in text_with_hashtag_link'
+  [1m[36mHashtag Load (0.5ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" INNER JOIN "hashtag_questions" ON "hashtags"."id" = "hashtag_questions"."hashtag_id" WHERE "hashtag_questions"."question_id" = $1[0m  [["question_id", 8]]
+  ↳ app/views/questions/_question.html.erb:29
+  Rendered questions/_question.html.erb (Duration: 22.5ms | Allocations: 8413)
+  Rendered users/show.html.erb within layouts/application (Duration: 29.6ms | Allocations: 10800)
+  Rendered layout layouts/application.html.erb (Duration: 35.5ms | Allocations: 14836)
+Completed 200 OK in 42ms (Views: 34.5ms | ActiveRecord: 2.7ms | Allocations: 17019)
+
+
+Started GET "/" for 127.0.0.1 at 2023-01-27 18:38:26 +0600
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT $1[0m  [["LIMIT", 5]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mHashtag Load (0.8ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."id" IN (SELECT "hashtag_questions"."hashtag_id" FROM "hashtag_questions" GROUP BY "hashtag_questions"."hashtag_id" ORDER BY COUNT(hashtag_id) desc) LIMIT $1[0m  [["LIMIT", 7]]
+  ↳ app/views/users/index.html.erb:27
+  Rendered users/index.html.erb within layouts/application (Duration: 25.1ms | Allocations: 3938)
+  Rendered layout layouts/application.html.erb (Duration: 32.6ms | Allocations: 7768)
+Completed 200 OK in 37ms (Views: 32.5ms | ActiveRecord: 1.2ms | Allocations: 8905)
+
+
+Started GET "/users/7" for 127.0.0.1 at 2023-01-27 18:38:27 +0600
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:72:in `load_user'
+  [1m[36mQuestion Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1[0m  [["user_id", 7]]
+  ↳ app/controllers/users_controller.rb:52:in `show'
+  [1m[36mQuestion Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1 AND "questions"."answer" IS NOT NULL[0m  [["user_id", 7]]
+  ↳ app/controllers/users_controller.rb:53:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  [1m[36mQuestion Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."user_id" = $1 LIMIT $2[0m  [["user_id", 7], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.erb:50
+  Rendered users/show.html.erb within layouts/application (Duration: 5.4ms | Allocations: 2001)
+  Rendered layout layouts/application.html.erb (Duration: 11.3ms | Allocations: 5780)
+Completed 200 OK in 20ms (Views: 11.4ms | ActiveRecord: 1.9ms | Allocations: 7937)
+
+
+Started GET "/" for 127.0.0.1 at 2023-01-27 18:38:29 +0600
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT $1[0m  [["LIMIT", 5]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mHashtag Load (1.0ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."id" IN (SELECT "hashtag_questions"."hashtag_id" FROM "hashtag_questions" GROUP BY "hashtag_questions"."hashtag_id" ORDER BY COUNT(hashtag_id) desc) LIMIT $1[0m  [["LIMIT", 7]]
+  ↳ app/views/users/index.html.erb:27
+  Rendered users/index.html.erb within layouts/application (Duration: 10.2ms | Allocations: 3845)
+  Rendered layout layouts/application.html.erb (Duration: 16.9ms | Allocations: 7631)
+Completed 200 OK in 21ms (Views: 16.6ms | ActiveRecord: 1.3ms | Allocations: 8650)
+
+
+Started GET "/users/6" for 127.0.0.1 at 2023-01-27 18:38:30 +0600
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"6"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:72:in `load_user'
+  [1m[36mQuestion Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1[0m  [["user_id", 6]]
+  ↳ app/controllers/users_controller.rb:52:in `show'
+  [1m[36mQuestion Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1 AND "questions"."answer" IS NOT NULL[0m  [["user_id", 6]]
+  ↳ app/controllers/users_controller.rb:53:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  [1m[36mQuestion Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."user_id" = $1 LIMIT $2[0m  [["user_id", 6], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.erb:50
+  Rendered users/show.html.erb within layouts/application (Duration: 4.2ms | Allocations: 1981)
+  Rendered layout layouts/application.html.erb (Duration: 11.7ms | Allocations: 5760)
+Completed 200 OK in 20ms (Views: 11.9ms | ActiveRecord: 1.5ms | Allocations: 7826)
+
+
+Started GET "/" for 127.0.0.1 at 2023-01-27 18:38:31 +0600
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT $1[0m  [["LIMIT", 5]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mHashtag Load (0.6ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."id" IN (SELECT "hashtag_questions"."hashtag_id" FROM "hashtag_questions" GROUP BY "hashtag_questions"."hashtag_id" ORDER BY COUNT(hashtag_id) desc) LIMIT $1[0m  [["LIMIT", 7]]
+  ↳ app/views/users/index.html.erb:27
+  Rendered users/index.html.erb within layouts/application (Duration: 7.1ms | Allocations: 3841)
+  Rendered layout layouts/application.html.erb (Duration: 14.1ms | Allocations: 7659)
+Completed 200 OK in 20ms (Views: 14.1ms | ActiveRecord: 0.9ms | Allocations: 8678)
+
+
+Started GET "/users/5" for 127.0.0.1 at 2023-01-27 18:38:32 +0600
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"5"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:72:in `load_user'
+  [1m[36mQuestion Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1[0m  [["user_id", 5]]
+  ↳ app/controllers/users_controller.rb:52:in `show'
+  [1m[36mQuestion Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1 AND "questions"."answer" IS NOT NULL[0m  [["user_id", 5]]
+  ↳ app/controllers/users_controller.rb:53:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  [1m[36mQuestion Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."user_id" = $1 LIMIT $2[0m  [["user_id", 5], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.erb:50
+  Rendered users/show.html.erb within layouts/application (Duration: 3.9ms | Allocations: 1971)
+  Rendered layout layouts/application.html.erb (Duration: 12.0ms | Allocations: 5749)
+Completed 200 OK in 19ms (Views: 12.4ms | ActiveRecord: 1.5ms | Allocations: 7812)
+
+
+Started GET "/" for 127.0.0.1 at 2023-01-27 18:38:34 +0600
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT $1[0m  [["LIMIT", 5]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mHashtag Load (0.7ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."id" IN (SELECT "hashtag_questions"."hashtag_id" FROM "hashtag_questions" GROUP BY "hashtag_questions"."hashtag_id" ORDER BY COUNT(hashtag_id) desc) LIMIT $1[0m  [["LIMIT", 7]]
+  ↳ app/views/users/index.html.erb:27
+  Rendered users/index.html.erb within layouts/application (Duration: 8.4ms | Allocations: 3845)
+  Rendered layout layouts/application.html.erb (Duration: 13.9ms | Allocations: 7631)
+Completed 200 OK in 20ms (Views: 14.5ms | ActiveRecord: 1.0ms | Allocations: 8650)
+
+
+Started GET "/users/4" for 127.0.0.1 at 2023-01-27 18:38:35 +0600
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:72:in `load_user'
+  [1m[36mQuestion Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1[0m  [["user_id", 4]]
+  ↳ app/controllers/users_controller.rb:52:in `show'
+  [1m[36mQuestion Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1 AND "questions"."answer" IS NOT NULL[0m  [["user_id", 4]]
+  ↳ app/controllers/users_controller.rb:53:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  [1m[36mQuestion Exists? (0.6ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."user_id" = $1 LIMIT $2[0m  [["user_id", 4], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.erb:50
+  Rendered users/show.html.erb within layouts/application (Duration: 6.1ms | Allocations: 1950)
+  Rendered layout layouts/application.html.erb (Duration: 11.9ms | Allocations: 5732)
+Completed 200 OK in 19ms (Views: 11.8ms | ActiveRecord: 1.8ms | Allocations: 7791)
+
+
+Started GET "/" for 127.0.0.1 at 2023-01-27 18:38:36 +0600
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT $1[0m  [["LIMIT", 5]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mHashtag Load (0.6ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."id" IN (SELECT "hashtag_questions"."hashtag_id" FROM "hashtag_questions" GROUP BY "hashtag_questions"."hashtag_id" ORDER BY COUNT(hashtag_id) desc) LIMIT $1[0m  [["LIMIT", 7]]
+  ↳ app/views/users/index.html.erb:27
+  Rendered users/index.html.erb within layouts/application (Duration: 6.8ms | Allocations: 3853)
+  Rendered layout layouts/application.html.erb (Duration: 13.6ms | Allocations: 7643)
+Completed 200 OK in 18ms (Views: 13.8ms | ActiveRecord: 0.9ms | Allocations: 8662)
+
+
+Started GET "/users/3" for 127.0.0.1 at 2023-01-27 18:38:37 +0600
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:72:in `load_user'
+  [1m[36mQuestion Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/users_controller.rb:52:in `show'
+  [1m[36mQuestion Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1 AND "questions"."answer" IS NOT NULL[0m  [["user_id", 3]]
+  ↳ app/controllers/users_controller.rb:53:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  [1m[36mQuestion Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."user_id" = $1 LIMIT $2[0m  [["user_id", 3], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.erb:50
+  [1m[36mQuestion Load (0.3ms)[0m  [1m[34mSELECT "questions".* FROM "questions" WHERE "questions"."user_id" = $1 ORDER BY "questions"."created_at" DESC LIMIT $2[0m  [["user_id", 3], ["LIMIT", 3]]
+  ↳ app/views/users/show.html.erb:52
+  [1m[36mHashtag Load (0.5ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."name" = $1 LIMIT $2[0m  [["name", "women"], ["LIMIT", 1]]
+  ↳ app/helpers/questions_helper.rb:6:in `block in text_with_hashtag_link'
+  [1m[36mHashtag Load (0.6ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" INNER JOIN "hashtag_questions" ON "hashtags"."id" = "hashtag_questions"."hashtag_id" WHERE "hashtag_questions"."question_id" = $1[0m  [["question_id", 8]]
+  ↳ app/views/questions/_question.html.erb:29
+  Rendered questions/_question.html.erb (Duration: 6.3ms | Allocations: 1680)
+  Rendered users/show.html.erb within layouts/application (Duration: 11.6ms | Allocations: 3768)
+  Rendered layout layouts/application.html.erb (Duration: 17.8ms | Allocations: 7691)
+Completed 200 OK in 28ms (Views: 16.7ms | ActiveRecord: 2.9ms | Allocations: 9751)
+
+
+Started GET "/users/3/questions" for 127.0.0.1 at 2023-01-27 18:38:50 +0600
+Processing by UsersController#questions as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:72:in `load_user'
+  Rendering layout layouts/application.html.erb
+  Rendering users/questions.html.erb within layouts/application
+  [1m[36mQuestion Load (0.3ms)[0m  [1m[34mSELECT "questions".* FROM "questions" WHERE "questions"."user_id" = $1 ORDER BY "questions"."created_at" DESC[0m  [["user_id", 3]]
+  ↳ app/views/users/questions.html.erb:12
+  [1m[36mHashtag Load (0.3ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."name" = $1 LIMIT $2[0m  [["name", "women"], ["LIMIT", 1]]
+  ↳ app/helpers/questions_helper.rb:6:in `block in text_with_hashtag_link'
+  [1m[36mHashtag Load (0.5ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" INNER JOIN "hashtag_questions" ON "hashtags"."id" = "hashtag_questions"."hashtag_id" WHERE "hashtag_questions"."question_id" = $1[0m  [["question_id", 8]]
+  ↳ app/views/questions/_question.html.erb:29
+  Rendered questions/_question.html.erb (Duration: 4.4ms | Allocations: 1627)
+  Rendered users/questions.html.erb within layouts/application (Duration: 8.8ms | Allocations: 2861)
+  Rendered layout layouts/application.html.erb (Duration: 14.5ms | Allocations: 6784)
+Completed 200 OK in 18ms (Views: 13.9ms | ActiveRecord: 1.5ms | Allocations: 7781)
+
+
+Started GET "/" for 127.0.0.1 at 2023-01-27 18:40:48 +0600
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT $1[0m  [["LIMIT", 5]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mHashtag Load (0.8ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."id" IN (SELECT "hashtag_questions"."hashtag_id" FROM "hashtag_questions" GROUP BY "hashtag_questions"."hashtag_id" ORDER BY COUNT(hashtag_id) desc) LIMIT $1[0m  [["LIMIT", 7]]
+  ↳ app/views/users/index.html.erb:27
+  Rendered users/index.html.erb within layouts/application (Duration: 13.3ms | Allocations: 5283)
+  Rendered layout layouts/application.html.erb (Duration: 18.9ms | Allocations: 9201)
+Completed 200 OK in 46ms (Views: 16.5ms | ActiveRecord: 10.3ms | Allocations: 18888)
+
+
+Started GET "/users/4" for 127.0.0.1 at 2023-01-27 18:40:49 +0600
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"4"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:72:in `load_user'
+  [1m[36mQuestion Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1[0m  [["user_id", 4]]
+  ↳ app/controllers/users_controller.rb:52:in `show'
+  [1m[36mQuestion Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1 AND "questions"."answer" IS NOT NULL[0m  [["user_id", 4]]
+  ↳ app/controllers/users_controller.rb:53:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  [1m[36mQuestion Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."user_id" = $1 LIMIT $2[0m  [["user_id", 4], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.erb:50
+  Rendered users/show.html.erb within layouts/application (Duration: 5.4ms | Allocations: 2318)
+  Rendered layout layouts/application.html.erb (Duration: 11.5ms | Allocations: 6143)
+Completed 200 OK in 32ms (Views: 11.6ms | ActiveRecord: 5.0ms | Allocations: 13452)
+
+
+Started GET "/" for 127.0.0.1 at 2023-01-27 18:40:51 +0600
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT $1[0m  [["LIMIT", 5]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mHashtag Load (1.2ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."id" IN (SELECT "hashtag_questions"."hashtag_id" FROM "hashtag_questions" GROUP BY "hashtag_questions"."hashtag_id" ORDER BY COUNT(hashtag_id) desc) LIMIT $1[0m  [["LIMIT", 7]]
+  ↳ app/views/users/index.html.erb:27
+  Rendered users/index.html.erb within layouts/application (Duration: 8.6ms | Allocations: 3855)
+  Rendered layout layouts/application.html.erb (Duration: 13.9ms | Allocations: 7642)
+Completed 200 OK in 18ms (Views: 13.2ms | ActiveRecord: 1.6ms | Allocations: 8699)
+
+
+Started GET "/users/7" for 127.0.0.1 at 2023-01-27 18:40:52 +0600
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"7"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:72:in `load_user'
+  [1m[36mQuestion Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1[0m  [["user_id", 7]]
+  ↳ app/controllers/users_controller.rb:52:in `show'
+  [1m[36mQuestion Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1 AND "questions"."answer" IS NOT NULL[0m  [["user_id", 7]]
+  ↳ app/controllers/users_controller.rb:53:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  [1m[36mQuestion Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."user_id" = $1 LIMIT $2[0m  [["user_id", 7], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.erb:50
+  Rendered users/show.html.erb within layouts/application (Duration: 4.7ms | Allocations: 1962)
+  Rendered layout layouts/application.html.erb (Duration: 10.2ms | Allocations: 5744)
+Completed 200 OK in 16ms (Views: 10.5ms | ActiveRecord: 1.2ms | Allocations: 7814)
+
+
+Started GET "/session/new" for 127.0.0.1 at 2023-01-27 18:40:53 +0600
+Processing by SessionsController#new as HTML
+  Rendering sessions/new.html.erb
+  Rendered sessions/new.html.erb (Duration: 4.8ms | Allocations: 2899)
+Completed 200 OK in 7ms (Views: 6.1ms | ActiveRecord: 0.0ms | Allocations: 3550)
+
+
+Started POST "/session" for 127.0.0.1 at 2023-01-27 18:40:57 +0600
+Processing by SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "email"=>"joker", "password"=>"[FILTERED]", "commit"=>"Login"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "joker"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:47:in `authenticate'
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "joker"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:47:in `authenticate'
+  Rendering sessions/new.html.erb
+  Rendered sessions/new.html.erb (Duration: 5.0ms | Allocations: 2080)
+Completed 200 OK in 39ms (Views: 6.4ms | ActiveRecord: 1.0ms | Allocations: 4087)
+
+
+Started POST "/session" for 127.0.0.1 at 2023-01-27 18:41:00 +0600
+Processing by SessionsController#create as HTML
+  Parameters: {"authenticity_token"=>"[FILTERED]", "email"=>"joker", "password"=>"[FILTERED]", "commit"=>"Login"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "joker"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:47:in `authenticate'
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "joker"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:47:in `authenticate'
+Redirected to http://127.0.0.1:3000/users/1
+Completed 302 Found in 33ms (ActiveRecord: 2.0ms | Allocations: 1488)
+
+
+Started GET "/users/1" for 127.0.0.1 at 2023-01-27 18:41:00 +0600
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:72:in `load_user'
+  [1m[36mQuestion Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/users_controller.rb:52:in `show'
+  [1m[36mQuestion Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1 AND "questions"."answer" IS NOT NULL[0m  [["user_id", 1]]
+  ↳ app/controllers/users_controller.rb:53:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `current_user'
+  [1m[36mQuestion Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."user_id" = $1 LIMIT $2[0m  [["user_id", 1], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.erb:50
+  [1m[36mQuestion Load (0.3ms)[0m  [1m[34mSELECT "questions".* FROM "questions" WHERE "questions"."user_id" = $1 ORDER BY "questions"."created_at" DESC LIMIT $2[0m  [["user_id", 1], ["LIMIT", 3]]
+  ↳ app/views/users/show.html.erb:52
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:13:in `question_author'
+  [1m[36mHashtag Load (0.4ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."name" = $1 LIMIT $2[0m  [["name", "ola"], ["LIMIT", 1]]
+  ↳ app/helpers/questions_helper.rb:6:in `block in text_with_hashtag_link'
+  [1m[36mHashtag Load (0.6ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" INNER JOIN "hashtag_questions" ON "hashtags"."id" = "hashtag_questions"."hashtag_id" WHERE "hashtag_questions"."question_id" = $1[0m  [["question_id", 9]]
+  ↳ app/views/questions/_question.html.erb:29
+  Rendered questions/_question.html.erb (Duration: 14.6ms | Allocations: 6832)
+  [1m[36mHashtag Load (0.3ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."name" = $1 LIMIT $2[0m  [["name", "baby"], ["LIMIT", 1]]
+  ↳ app/helpers/questions_helper.rb:6:in `block in text_with_hashtag_link'
+  [1m[36mHashtag Load (0.5ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" INNER JOIN "hashtag_questions" ON "hashtags"."id" = "hashtag_questions"."hashtag_id" WHERE "hashtag_questions"."question_id" = $1[0m  [["question_id", 6]]
+  ↳ app/views/questions/_question.html.erb:29
+  Rendered questions/_question.html.erb (Duration: 4.9ms | Allocations: 1721)
+  [1m[36mCACHE Hashtag Load (0.0ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."name" = $1 LIMIT $2[0m  [["name", "baby"], ["LIMIT", 1]]
+  ↳ app/helpers/questions_helper.rb:6:in `block in text_with_hashtag_link'
+  [1m[36mHashtag Load (0.5ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" INNER JOIN "hashtag_questions" ON "hashtags"."id" = "hashtag_questions"."hashtag_id" WHERE "hashtag_questions"."question_id" = $1[0m  [["question_id", 5]]
+  ↳ app/views/questions/_question.html.erb:29
+  Rendered questions/_question.html.erb (Duration: 15.4ms | Allocations: 1663)
+  Rendered users/show.html.erb within layouts/application (Duration: 67.7ms | Allocations: 18721)
+  Rendered layout layouts/application.html.erb (Duration: 68.0ms | Allocations: 18813)
+Completed 500 Internal Server Error in 77ms (ActiveRecord: 4.6ms | Allocations: 20964)
+
+
+  
+ActionView::Template::Error (undefined method `user_questions_path' for #<ActionView::Base:0x00000000010f18>):
+    53:       <%= render partial: 'questions/question', object: question %>
+    54:     <% end %>
+    55:     <div class="text-center">
+    56:           <%= link_to 'All questions', user_questions_path(@user.id) %>
+    57:       <% else %>
+    58:         <h4>User don't have questions yet</h4>
+    59:       <% end %>
+  
+app/views/users/show.html.erb:56
+Started GET "/users/1" for 127.0.0.1 at 2023-01-27 18:41:21 +0600
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:72:in `load_user'
+  [1m[36mQuestion Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/users_controller.rb:52:in `show'
+  [1m[36mQuestion Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1 AND "questions"."answer" IS NOT NULL[0m  [["user_id", 1]]
+  ↳ app/controllers/users_controller.rb:53:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `current_user'
+  [1m[36mQuestion Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."user_id" = $1 LIMIT $2[0m  [["user_id", 1], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.erb:50
+  [1m[36mQuestion Load (0.5ms)[0m  [1m[34mSELECT "questions".* FROM "questions" WHERE "questions"."user_id" = $1 ORDER BY "questions"."created_at" DESC LIMIT $2[0m  [["user_id", 1], ["LIMIT", 3]]
+  ↳ app/views/users/show.html.erb:52
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:13:in `question_author'
+  [1m[36mHashtag Load (0.5ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."name" = $1 LIMIT $2[0m  [["name", "ola"], ["LIMIT", 1]]
+  ↳ app/helpers/questions_helper.rb:6:in `block in text_with_hashtag_link'
+  [1m[36mHashtag Load (0.4ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" INNER JOIN "hashtag_questions" ON "hashtags"."id" = "hashtag_questions"."hashtag_id" WHERE "hashtag_questions"."question_id" = $1[0m  [["question_id", 9]]
+  ↳ app/views/questions/_question.html.erb:29
+  Rendered questions/_question.html.erb (Duration: 44.4ms | Allocations: 10899)
+  [1m[36mHashtag Load (0.3ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."name" = $1 LIMIT $2[0m  [["name", "baby"], ["LIMIT", 1]]
+  ↳ app/helpers/questions_helper.rb:6:in `block in text_with_hashtag_link'
+  [1m[36mHashtag Load (0.4ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" INNER JOIN "hashtag_questions" ON "hashtags"."id" = "hashtag_questions"."hashtag_id" WHERE "hashtag_questions"."question_id" = $1[0m  [["question_id", 6]]
+  ↳ app/views/questions/_question.html.erb:29
+  Rendered questions/_question.html.erb (Duration: 9.9ms | Allocations: 1785)
+  [1m[36mCACHE Hashtag Load (0.1ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."name" = $1 LIMIT $2[0m  [["name", "baby"], ["LIMIT", 1]]
+  ↳ app/helpers/questions_helper.rb:6:in `block in text_with_hashtag_link'
+  [1m[36mHashtag Load (0.4ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" INNER JOIN "hashtag_questions" ON "hashtags"."id" = "hashtag_questions"."hashtag_id" WHERE "hashtag_questions"."question_id" = $1[0m  [["question_id", 5]]
+  ↳ app/views/questions/_question.html.erb:29
+  Rendered questions/_question.html.erb (Duration: 9.3ms | Allocations: 1656)
+  Rendered users/show.html.erb within layouts/application (Duration: 86.5ms | Allocations: 18693)
+  Rendered layout layouts/application.html.erb (Duration: 98.2ms | Allocations: 22698)
+Completed 200 OK in 159ms (Views: 90.2ms | ActiveRecord: 22.6ms | Allocations: 35511)
+
+
+Started GET "/users/1" for 127.0.0.1 at 2023-01-27 18:41:34 +0600
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:72:in `load_user'
+  [1m[36mQuestion Count (2.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/users_controller.rb:52:in `show'
+  [1m[36mQuestion Count (0.6ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1 AND "questions"."answer" IS NOT NULL[0m  [["user_id", 1]]
+  ↳ app/controllers/users_controller.rb:53:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `current_user'
+  [1m[36mQuestion Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."user_id" = $1 LIMIT $2[0m  [["user_id", 1], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.erb:50
+  [1m[36mQuestion Load (0.4ms)[0m  [1m[34mSELECT "questions".* FROM "questions" WHERE "questions"."user_id" = $1 ORDER BY "questions"."created_at" DESC LIMIT $2[0m  [["user_id", 1], ["LIMIT", 3]]
+  ↳ app/views/users/show.html.erb:52
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:13:in `question_author'
+  [1m[36mHashtag Load (0.3ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."name" = $1 LIMIT $2[0m  [["name", "ola"], ["LIMIT", 1]]
+  ↳ app/helpers/questions_helper.rb:6:in `block in text_with_hashtag_link'
+  [1m[36mHashtag Load (0.4ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" INNER JOIN "hashtag_questions" ON "hashtags"."id" = "hashtag_questions"."hashtag_id" WHERE "hashtag_questions"."question_id" = $1[0m  [["question_id", 9]]
+  ↳ app/views/questions/_question.html.erb:29
+  Rendered questions/_question.html.erb (Duration: 39.0ms | Allocations: 10893)
+  [1m[36mHashtag Load (0.5ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."name" = $1 LIMIT $2[0m  [["name", "baby"], ["LIMIT", 1]]
+  ↳ app/helpers/questions_helper.rb:6:in `block in text_with_hashtag_link'
+  [1m[36mHashtag Load (0.6ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" INNER JOIN "hashtag_questions" ON "hashtags"."id" = "hashtag_questions"."hashtag_id" WHERE "hashtag_questions"."question_id" = $1[0m  [["question_id", 6]]
+  ↳ app/views/questions/_question.html.erb:29
+  Rendered questions/_question.html.erb (Duration: 10.0ms | Allocations: 1785)
+  [1m[36mCACHE Hashtag Load (0.0ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."name" = $1 LIMIT $2[0m  [["name", "baby"], ["LIMIT", 1]]
+  ↳ app/helpers/questions_helper.rb:6:in `block in text_with_hashtag_link'
+  [1m[36mHashtag Load (0.7ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" INNER JOIN "hashtag_questions" ON "hashtags"."id" = "hashtag_questions"."hashtag_id" WHERE "hashtag_questions"."question_id" = $1[0m  [["question_id", 5]]
+  ↳ app/views/questions/_question.html.erb:29
+  Rendered questions/_question.html.erb (Duration: 5.8ms | Allocations: 1656)
+  Rendered users/show.html.erb within layouts/application (Duration: 98.2ms | Allocations: 22917)
+  Rendered layout layouts/application.html.erb (Duration: 98.7ms | Allocations: 23002)
+Completed 500 Internal Server Error in 161ms (ActiveRecord: 27.9ms | Allocations: 35709)
+
+
+  
+ActionView::Template::Error (undefined method `user_questions_path' for #<ActionView::Base:0x0000000001a3b0>):
+    53:       <%= render partial: 'questions/question', object: question %>
+    54:     <% end %>
+    55:     <div class="text-center">
+    56:           <%= link_to 'All questions', user_questions_path(@user.id) %>
+    57:       <% else %>
+    58:         <h4>User don't have questions yet</h4>
+    59:       <% end %>
+  
+app/views/users/show.html.erb:56
+Started GET "/users/1" for 127.0.0.1 at 2023-01-27 18:42:30 +0600
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:72:in `load_user'
+  [1m[36mQuestion Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/users_controller.rb:52:in `show'
+  [1m[36mQuestion Count (0.3ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1 AND "questions"."answer" IS NOT NULL[0m  [["user_id", 1]]
+  ↳ app/controllers/users_controller.rb:53:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `current_user'
+  [1m[36mQuestion Exists? (0.9ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."user_id" = $1 LIMIT $2[0m  [["user_id", 1], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.erb:50
+  [1m[36mQuestion Load (1.1ms)[0m  [1m[34mSELECT "questions".* FROM "questions" WHERE "questions"."user_id" = $1 ORDER BY "questions"."created_at" DESC LIMIT $2[0m  [["user_id", 1], ["LIMIT", 3]]
+  ↳ app/views/users/show.html.erb:52
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:13:in `question_author'
+  [1m[36mHashtag Load (0.4ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."name" = $1 LIMIT $2[0m  [["name", "ola"], ["LIMIT", 1]]
+  ↳ app/helpers/questions_helper.rb:6:in `block in text_with_hashtag_link'
+  [1m[36mHashtag Load (0.5ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" INNER JOIN "hashtag_questions" ON "hashtags"."id" = "hashtag_questions"."hashtag_id" WHERE "hashtag_questions"."question_id" = $1[0m  [["question_id", 9]]
+  ↳ app/views/questions/_question.html.erb:29
+  Rendered questions/_question.html.erb (Duration: 45.2ms | Allocations: 10898)
+  [1m[36mHashtag Load (0.6ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."name" = $1 LIMIT $2[0m  [["name", "baby"], ["LIMIT", 1]]
+  ↳ app/helpers/questions_helper.rb:6:in `block in text_with_hashtag_link'
+  [1m[36mHashtag Load (0.4ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" INNER JOIN "hashtag_questions" ON "hashtags"."id" = "hashtag_questions"."hashtag_id" WHERE "hashtag_questions"."question_id" = $1[0m  [["question_id", 6]]
+  ↳ app/views/questions/_question.html.erb:29
+  Rendered questions/_question.html.erb (Duration: 13.8ms | Allocations: 1785)
+  [1m[36mCACHE Hashtag Load (0.0ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."name" = $1 LIMIT $2[0m  [["name", "baby"], ["LIMIT", 1]]
+  ↳ app/helpers/questions_helper.rb:6:in `block in text_with_hashtag_link'
+  [1m[36mHashtag Load (0.4ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" INNER JOIN "hashtag_questions" ON "hashtags"."id" = "hashtag_questions"."hashtag_id" WHERE "hashtag_questions"."question_id" = $1[0m  [["question_id", 5]]
+  ↳ app/views/questions/_question.html.erb:29
+  Rendered questions/_question.html.erb (Duration: 13.0ms | Allocations: 1656)
+  Rendered users/show.html.erb within layouts/application (Duration: 135.4ms | Allocations: 22922)
+  Rendered layout layouts/application.html.erb (Duration: 135.9ms | Allocations: 23007)
+Completed 500 Internal Server Error in 170ms (ActiveRecord: 22.5ms | Allocations: 35785)
+
+
+  
+ActionView::Template::Error (undefined method `user_questions_path' for #<ActionView::Base:0x0000000001f068>):
+    53:       <%= render partial: 'questions/question', object: question %>
+    54:     <% end %>
+    55:     <div class="text-center">
+    56:           <%= link_to 'All questions', user_questions_path(@user.id) %>
+    57:       <% else %>
+    58:         <h4>User don't have questions yet</h4>
+    59:       <% end %>
+  
+app/views/users/show.html.erb:56
+Started GET "/users/1" for 127.0.0.1 at 2023-01-27 18:42:32 +0600
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:72:in `load_user'
+  [1m[36mQuestion Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/users_controller.rb:52:in `show'
+  [1m[36mQuestion Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1 AND "questions"."answer" IS NOT NULL[0m  [["user_id", 1]]
+  ↳ app/controllers/users_controller.rb:53:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `current_user'
+  [1m[36mQuestion Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."user_id" = $1 LIMIT $2[0m  [["user_id", 1], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.erb:50
+  [1m[36mQuestion Load (0.2ms)[0m  [1m[34mSELECT "questions".* FROM "questions" WHERE "questions"."user_id" = $1 ORDER BY "questions"."created_at" DESC LIMIT $2[0m  [["user_id", 1], ["LIMIT", 3]]
+  ↳ app/views/users/show.html.erb:52
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:13:in `question_author'
+  [1m[36mHashtag Load (0.2ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."name" = $1 LIMIT $2[0m  [["name", "ola"], ["LIMIT", 1]]
+  ↳ app/helpers/questions_helper.rb:6:in `block in text_with_hashtag_link'
+  [1m[36mHashtag Load (0.3ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" INNER JOIN "hashtag_questions" ON "hashtags"."id" = "hashtag_questions"."hashtag_id" WHERE "hashtag_questions"."question_id" = $1[0m  [["question_id", 9]]
+  ↳ app/views/questions/_question.html.erb:29
+  Rendered questions/_question.html.erb (Duration: 5.9ms | Allocations: 2449)
+  [1m[36mHashtag Load (0.2ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."name" = $1 LIMIT $2[0m  [["name", "baby"], ["LIMIT", 1]]
+  ↳ app/helpers/questions_helper.rb:6:in `block in text_with_hashtag_link'
+  [1m[36mHashtag Load (0.2ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" INNER JOIN "hashtag_questions" ON "hashtags"."id" = "hashtag_questions"."hashtag_id" WHERE "hashtag_questions"."question_id" = $1[0m  [["question_id", 6]]
+  ↳ app/views/questions/_question.html.erb:29
+  Rendered questions/_question.html.erb (Duration: 4.2ms | Allocations: 1721)
+  [1m[36mCACHE Hashtag Load (0.0ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."name" = $1 LIMIT $2[0m  [["name", "baby"], ["LIMIT", 1]]
+  ↳ app/helpers/questions_helper.rb:6:in `block in text_with_hashtag_link'
+  [1m[36mHashtag Load (0.3ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" INNER JOIN "hashtag_questions" ON "hashtags"."id" = "hashtag_questions"."hashtag_id" WHERE "hashtag_questions"."question_id" = $1[0m  [["question_id", 5]]
+  ↳ app/views/questions/_question.html.erb:29
+  Rendered questions/_question.html.erb (Duration: 3.4ms | Allocations: 1655)
+  Rendered users/show.html.erb within layouts/application (Duration: 40.1ms | Allocations: 13443)
+  Rendered layout layouts/application.html.erb (Duration: 40.5ms | Allocations: 13522)
+Completed 500 Internal Server Error in 48ms (ActiveRecord: 3.4ms | Allocations: 15636)
+
+
+  
+ActionView::Template::Error (undefined method `user_questions_path' for #<ActionView::Base:0x0000000001f388>):
+    53:       <%= render partial: 'questions/question', object: question %>
+    54:     <% end %>
+    55:     <div class="text-center">
+    56:           <%= link_to 'All questions', user_questions_path(@user.id) %>
+    57:       <% else %>
+    58:         <h4>User don't have questions yet</h4>
+    59:       <% end %>
+  
+app/views/users/show.html.erb:56
+Started GET "/users/1" for 127.0.0.1 at 2023-01-27 18:42:36 +0600
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:72:in `load_user'
+  [1m[36mQuestion Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/users_controller.rb:52:in `show'
+  [1m[36mQuestion Count (0.5ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1 AND "questions"."answer" IS NOT NULL[0m  [["user_id", 1]]
+  ↳ app/controllers/users_controller.rb:53:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `current_user'
+  [1m[36mQuestion Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."user_id" = $1 LIMIT $2[0m  [["user_id", 1], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.erb:50
+  [1m[36mQuestion Load (0.4ms)[0m  [1m[34mSELECT "questions".* FROM "questions" WHERE "questions"."user_id" = $1 ORDER BY "questions"."created_at" DESC LIMIT $2[0m  [["user_id", 1], ["LIMIT", 3]]
+  ↳ app/views/users/show.html.erb:52
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/helpers/application_helper.rb:13:in `question_author'
+  [1m[36mHashtag Load (0.3ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."name" = $1 LIMIT $2[0m  [["name", "ola"], ["LIMIT", 1]]
+  ↳ app/helpers/questions_helper.rb:6:in `block in text_with_hashtag_link'
+  [1m[36mHashtag Load (0.3ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" INNER JOIN "hashtag_questions" ON "hashtags"."id" = "hashtag_questions"."hashtag_id" WHERE "hashtag_questions"."question_id" = $1[0m  [["question_id", 9]]
+  ↳ app/views/questions/_question.html.erb:29
+  Rendered questions/_question.html.erb (Duration: 31.6ms | Allocations: 10898)
+  [1m[36mHashtag Load (0.2ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."name" = $1 LIMIT $2[0m  [["name", "baby"], ["LIMIT", 1]]
+  ↳ app/helpers/questions_helper.rb:6:in `block in text_with_hashtag_link'
+  [1m[36mHashtag Load (0.3ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" INNER JOIN "hashtag_questions" ON "hashtags"."id" = "hashtag_questions"."hashtag_id" WHERE "hashtag_questions"."question_id" = $1[0m  [["question_id", 6]]
+  ↳ app/views/questions/_question.html.erb:29
+  Rendered questions/_question.html.erb (Duration: 4.5ms | Allocations: 1785)
+  [1m[36mCACHE Hashtag Load (0.0ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."name" = $1 LIMIT $2[0m  [["name", "baby"], ["LIMIT", 1]]
+  ↳ app/helpers/questions_helper.rb:6:in `block in text_with_hashtag_link'
+  [1m[36mHashtag Load (0.3ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" INNER JOIN "hashtag_questions" ON "hashtags"."id" = "hashtag_questions"."hashtag_id" WHERE "hashtag_questions"."question_id" = $1[0m  [["question_id", 5]]
+  ↳ app/views/questions/_question.html.erb:29
+  Rendered questions/_question.html.erb (Duration: 4.3ms | Allocations: 1656)
+  Rendered users/show.html.erb within layouts/application (Duration: 61.1ms | Allocations: 18640)
+  Rendered layout layouts/application.html.erb (Duration: 66.9ms | Allocations: 22645)
+Completed 200 OK in 133ms (Views: 59.7ms | ActiveRecord: 28.4ms | Allocations: 35458)
+
+
+Started GET "/" for 127.0.0.1 at 2023-01-27 18:43:48 +0600
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT $1[0m  [["LIMIT", 5]]
+  ↳ app/controllers/users_controller.rb:8:in `index'
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mHashtag Load (0.8ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."id" IN (SELECT "hashtag_questions"."hashtag_id" FROM "hashtag_questions" GROUP BY "hashtag_questions"."hashtag_id" ORDER BY COUNT(hashtag_id) desc) LIMIT $1[0m  [["LIMIT", 7]]
+  ↳ app/views/users/index.html.erb:27
+  Rendered users/index.html.erb within layouts/application (Duration: 12.0ms | Allocations: 4178)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `current_user'
+  Rendered layout layouts/application.html.erb (Duration: 19.2ms | Allocations: 8571)
+Completed 200 OK in 32ms (Views: 18.8ms | ActiveRecord: 1.4ms | Allocations: 13951)
+
+
+Started GET "/users/3" for 127.0.0.1 at 2023-01-27 18:43:50 +0600
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:72:in `load_user'
+  [1m[36mQuestion Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1[0m  [["user_id", 3]]
+  ↳ app/controllers/users_controller.rb:52:in `show'
+  [1m[36mQuestion Count (0.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "questions" WHERE "questions"."user_id" = $1 AND "questions"."answer" IS NOT NULL[0m  [["user_id", 3]]
+  ↳ app/controllers/users_controller.rb:53:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `current_user'
+  [1m[36mQuestion Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "questions" WHERE "questions"."user_id" = $1 LIMIT $2[0m  [["user_id", 3], ["LIMIT", 1]]
+  ↳ app/views/users/show.html.erb:50
+  [1m[36mQuestion Load (0.3ms)[0m  [1m[34mSELECT "questions".* FROM "questions" WHERE "questions"."user_id" = $1 ORDER BY "questions"."created_at" DESC LIMIT $2[0m  [["user_id", 3], ["LIMIT", 3]]
+  ↳ app/views/users/show.html.erb:52
+  [1m[36mHashtag Load (0.3ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."name" = $1 LIMIT $2[0m  [["name", "women"], ["LIMIT", 1]]
+  ↳ app/helpers/questions_helper.rb:6:in `block in text_with_hashtag_link'
+  [1m[36mHashtag Load (0.3ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" INNER JOIN "hashtag_questions" ON "hashtags"."id" = "hashtag_questions"."hashtag_id" WHERE "hashtag_questions"."question_id" = $1[0m  [["question_id", 8]]
+  ↳ app/views/questions/_question.html.erb:29
+  Rendered questions/_question.html.erb (Duration: 4.3ms | Allocations: 1686)
+  Rendered users/show.html.erb within layouts/application (Duration: 19.9ms | Allocations: 4407)
+  Rendered layout layouts/application.html.erb (Duration: 25.9ms | Allocations: 8398)
+Completed 200 OK in 35ms (Views: 25.0ms | ActiveRecord: 2.7ms | Allocations: 10531)
+
+
+Started GET "/users/3/questions" for 127.0.0.1 at 2023-01-27 18:43:55 +0600
+Processing by UsersController#questions as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:72:in `load_user'
+  Rendering layout layouts/application.html.erb
+  Rendering users/questions.html.erb within layouts/application
+  [1m[36mQuestion Load (0.4ms)[0m  [1m[34mSELECT "questions".* FROM "questions" WHERE "questions"."user_id" = $1 ORDER BY "questions"."created_at" DESC[0m  [["user_id", 3]]
+  ↳ app/views/users/questions.html.erb:12
+  [1m[36mHashtag Load (0.3ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" WHERE "hashtags"."name" = $1 LIMIT $2[0m  [["name", "women"], ["LIMIT", 1]]
+  ↳ app/helpers/questions_helper.rb:6:in `block in text_with_hashtag_link'
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:10:in `current_user'
+  [1m[36mHashtag Load (0.2ms)[0m  [1m[34mSELECT "hashtags".* FROM "hashtags" INNER JOIN "hashtag_questions" ON "hashtags"."id" = "hashtag_questions"."hashtag_id" WHERE "hashtag_questions"."question_id" = $1[0m  [["question_id", 8]]
+  ↳ app/views/questions/_question.html.erb:29
+  Rendered questions/_question.html.erb (Duration: 6.2ms | Allocations: 2195)
+  Rendered users/questions.html.erb within layouts/application (Duration: 10.0ms | Allocations: 3174)
+  Rendered layout layouts/application.html.erb (Duration: 16.2ms | Allocations: 7123)
+Completed 200 OK in 19ms (Views: 15.5ms | ActiveRecord: 1.4ms | Allocations: 8043)
+
+

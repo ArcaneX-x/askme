@@ -1,5 +1,5 @@
 # Askme
-## _Ask any question _
+## Ask any question
 
 Ask any question and get an answer.
 ## Features
@@ -11,10 +11,17 @@ Ask any question and get an answer.
 ## Installation
 
 Download the app.
-
 ```sh
+git clone https://github.com/ArcaneX-x/askme.git
+```
 Install Ruby, Rails and Postgresql
-rails db:migrate
+```sh
+bundle install
+```
+```sh
+rails db:create db:migrate
+```
+```sh
 rails s
 ```
 
